@@ -41,9 +41,9 @@ const appModule = createSlice({
 export const { actions: appActions } = appModule;
 export default appModule;
 
-export const fetchEmp = (): AppThunk => dispatch => {
+export const fetchEmp = (): AppThunk => async dispatch => {
   try {
-    axios
+    await axios
       .get("http://localhost:3000/api/v1/test/")
       .then(response => {
         console.log(response);
