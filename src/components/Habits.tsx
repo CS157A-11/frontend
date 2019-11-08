@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+var moment = require('moment');
+moment().format();
 
 /* Components */
 import Habit from "./Habit";
-import Calendar from "./Calender";
 import { Table } from "react-bootstrap";
+import { callbackify } from 'util';
+
+var lastDayOfMonth = moment().daysInMonth();
+
+const daysOfMonth:number[] = [];
+for(var i=0; i<lastDayOfMonth; i++) { 
+   daysOfMonth.push(i+1);
+}
+
 
 export interface HabitType {
   id: number;
@@ -13,20 +23,21 @@ export interface HabitType {
 
 const Habits: React.FC = () => {
   const [habits, setHabits] = useState<HabitType[]>([
-    { id: 1, name: "sleep early", color: "#e83e8c" },
-    { id: 2, name: "aaaa", color: "#007bff" },
-    { id: 3, name: "demo today", color: "#ffc107" }
+    { id: 1, name: "sleep early", color: "#e83e8c"},
+    { id: 2, name: "exercise", color: "#007bff" },
+    { id: 3, name: "wake up early", color: "#ffc107" }
   ]);
 
   return (
     <div className="habits mt-3">
+
       <h2>Habits:</h2>
 
       <Table bordered className="bg-white">
         <thead>
-          <tr>
+          <tr>   
             <th></th>
-            {["sun", "mon", "tue", "wed", "thr", "fri", "sat"].map(day => (
+            {daysOfMonth.map(day => (
               <th key={day} className="name p-2">
                 {day}
               </th>
@@ -42,5 +53,4 @@ const Habits: React.FC = () => {
     </div>
   );
 };
-
 export default Habits;

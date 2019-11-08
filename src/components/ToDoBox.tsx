@@ -33,7 +33,7 @@ const TodoBox: React.FC = () => {
 
   return (
     <>
-      <h3>To do:</h3>
+      <h3>Todo List:</h3>
       <TodoList
         todos={todos}
         removeTodo={handleRemoveTodo}
