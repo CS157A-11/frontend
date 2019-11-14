@@ -1,14 +1,14 @@
 import React from 'react';
 import { HabitType } from "./Habits";
-var moment = require('moment');
+let moment = require('moment');
 moment().format();
  
-import { Button } from "react-bootstrap";
+import { ButtonToolbar, Button } from "react-bootstrap";
 
-var lastDayOfMonth = moment().daysInMonth();
+let lastDayOfMonth = moment().daysInMonth();
 
 const daysOfMonth:number[] = [];
-for(var i=0; i<lastDayOfMonth; i++) { 
+for(let i=0; i<lastDayOfMonth; i++) { 
    daysOfMonth.push(i+1);
 }
 
@@ -18,6 +18,10 @@ interface Props {
 }
 
 const Habit: React.FC<Props> = props => {
+  const onClickHandler = () => {
+    console.log(props.habit.isCompleted);
+    {props.habit.isCompleted = !props.habit.isCompleted} 
+  }
   // onDoubleClick() {
   //
   // }
@@ -30,6 +34,7 @@ const Habit: React.FC<Props> = props => {
   // onSubmit(event) {
   // }
 
+
   /* Render habit */
   return (
     <tr className="habit" key={props.habit.name}>
@@ -37,16 +42,21 @@ const Habit: React.FC<Props> = props => {
         {props.habit.name}
       </td>
       { daysOfMonth.map(day => (
-        <td key={day} className="text-center">
-          <div
+        <td key={day} className="text-center" onClick = {onClickHandler}>
+          <div     
             style={{
-              width: "15px",
-              height: "20px",
+              width: "10px",
+              height: "10px",
+              backgroundColor: props.habit.isCompleted ? props.habit.color : 'none',
               border: "1px solid",
               borderColor: props.habit.color,
               borderRadius: "2px"
             }}
           />
+          {/* <ButtonToolbar>
+              <Button variant="outline-secondary"></Button>
+          </ButtonToolbar> */}
+
         </td>
       ))}
     </tr>

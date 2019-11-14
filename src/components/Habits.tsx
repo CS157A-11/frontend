@@ -7,27 +7,33 @@ import Habit from "./Habit";
 import { Table } from "react-bootstrap";
 import { callbackify } from 'util';
 
-var lastDayOfMonth = moment().daysInMonth();
+let lastDayOfMonth = moment().daysInMonth();
 
 const daysOfMonth:number[] = [];
-for(var i=0; i<lastDayOfMonth; i++) { 
+for(let i=0; i<lastDayOfMonth; i++) { 
    daysOfMonth.push(i+1);
 }
-
 
 export interface HabitType {
   id: number;
   name: string;
   color: string;
+  isCompleted: boolean;
 }
 
 const Habits: React.FC = () => {
   const [habits, setHabits] = useState<HabitType[]>([
-    { id: 1, name: "sleep early", color: "#e83e8c"},
-    { id: 2, name: "exercise", color: "#007bff" },
-    { id: 3, name: "wake up early", color: "#ffc107" }
+    { id: 1, name: "sleep early", color: "#e83e8c", isCompleted: false},
+    { id: 2, name: "exercise", color: "#007bff", isCompleted: false},
+    { id: 3, name: "meditate", color: "#ffc107", isCompleted: false},
+    { id: 4, name: "floss", color: "#e83e8c", isCompleted: false},
+    { id: 5, name: "read before class", color: "#007bff", isCompleted: false},
+    { id: 6, name: "clean room", color: "#ffc107", isCompleted: false},
+    { id: 7, name: "write in journal", color: "#e83e8c", isCompleted: false},
+    { id: 8, name: "take vitamins", color: "#007bff", isCompleted: false},
+    { id: 9, name: "wake up early", color: "#ffc107", isCompleted: false},
   ]);
-
+  
   return (
     <div className="habits mt-3">
 
@@ -46,7 +52,7 @@ const Habits: React.FC = () => {
         </thead>
         <tbody>
           {habits.map((habit: HabitType) => (
-            <Habit key={habit.id} habit={habit} />
+            <Habit key={habit.id} habit={habit}/>
           ))}
         </tbody>
       </Table>
