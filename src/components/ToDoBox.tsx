@@ -10,9 +10,9 @@ export interface ToDoType {
 
 const TodoBox: React.FC = () => {
   const [todos, setTodos] = useState<ToDoType[]>([
-    { id: 1, task: "hw 1", complete: false },
-    { id: 2, task: "hw 2", complete: false },
-    { id: 3, task: "register for classes", complete: false }
+    { id: 1, task: "HW 1", complete: false },
+    { id: 2, task: "HW 2", complete: false },
+    { id: 3, task: "Register for classes", complete: false }
   ]);
 
   const generateId = () => {

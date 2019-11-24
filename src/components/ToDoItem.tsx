@@ -7,6 +7,7 @@ interface Props {
   removeTodo(todoId: number): void;
   toggleComplete(todoId: number): void;
 }
+
 const TodoItem: React.FC<Props> = props => {
   const removeNode = (e: React.MouseEvent) => {
     e.preventDefault();

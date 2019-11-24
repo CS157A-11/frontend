@@ -2,8 +2,7 @@ import React from 'react';
 import { HabitType } from "./Habits";
 let moment = require('moment');
 moment().format();
- 
-import { ButtonToolbar, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 let lastDayOfMonth = moment().daysInMonth();
 
@@ -15,13 +14,10 @@ for(let i=0; i<lastDayOfMonth; i++) {
 /* Components */
 interface Props {
   habit: HabitType;
+  toggleComplete(todoId: number): void;
 }
 
 const Habit: React.FC<Props> = props => {
-  const onClickHandler = () => {
-    console.log(props.habit.isCompleted);
-    {props.habit.isCompleted = !props.habit.isCompleted} 
-  }
   // onDoubleClick() {
   //
   // }
@@ -34,6 +30,10 @@ const Habit: React.FC<Props> = props => {
   // onSubmit(event) {
   // }
 
+  const toggleComplete = (e: React.MouseEvent) => {
+    e.preventDefault();
+    props.toggleComplete(props.habit.id);
+  };
 
   /* Render habit */
   return (
@@ -41,22 +41,14 @@ const Habit: React.FC<Props> = props => {
       <td className="title" style={{ color: props.habit.color }}>
         {props.habit.name}
       </td>
-      { daysOfMonth.map(day => (
-        <td key={day} className="text-center" onClick = {onClickHandler}>
-          <div     
-            style={{
-              width: "10px",
-              height: "10px",
-              backgroundColor: props.habit.isCompleted ? props.habit.color : 'none',
-              border: "1px solid",
-              borderColor: props.habit.color,
-              borderRadius: "2px"
-            }}
-          />
-          {/* <ButtonToolbar>
-              <Button variant="outline-secondary"></Button>
-          </ButtonToolbar> */}
-
+      {["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"].map(day => (
+        <td key={day} className="text-center">
+          <Button
+            variant={props.habit.complete ? "primary" : "light"}
+            onClick={toggleComplete}  
+            size="lg"       
+          >
+          </Button>
         </td>
       ))}
     </tr>
