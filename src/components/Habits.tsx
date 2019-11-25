@@ -47,7 +47,6 @@ if(dayOfWeek != "Sat") {
 let firstDate = start.getMonth()+1 + "/" + start.getDate();  
 let lastDate = end.getMonth()+1 + "/" + end.getDate(); 
 
- 
 let lastDayOfMonth = moment().daysInMonth();
 
 const daysOfMonth:number[] = [];
@@ -88,7 +87,6 @@ const Habits: React.FC = () => {
     <div className="habits mt-3">
 
       {/* <h2>Habits:</h2> */} 
-
       <h3>Sun, {firstDate} - Sat, {lastDate}</h3>
 
       <Table className="bg-white">

@@ -2,8 +2,6 @@ import React from 'react';
 //import { Row, Col } from "react-bootstrap";
 import TodoBox from "./ToDoBox";
 import Habits from "./Habits";
-import Header from "./Layout/Header";
-import Routes from "./Routes";
 
 let today = new Date();
 let monthNumber = today.getMonth();
@@ -13,9 +11,11 @@ let year = today.getFullYear();
 
 const HabitTracker: React.FC = () => {
   return (
-    <div style={{backgroundColor: "white"}}>
-      <Header />
-      <Routes />
+    <div className="p-5" style={{backgroundColor: "white"}}>
+      <h1>Hey there, [name]</h1>
+      <h1>{monthName} {year}</h1> 
+      <Habits />
+      <TodoBox />
     </div>
   );
 }
