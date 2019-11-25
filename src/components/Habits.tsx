@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 var moment = require('moment');
+import { Button } from 'react-bootstrap';
 moment().format();
 
 /* Components */
@@ -87,7 +88,24 @@ const Habits: React.FC = () => {
     <div className="habits mt-3">
 
       {/* <h2>Habits:</h2> */} 
-      <h3>Sun, {firstDate} - Sat, {lastDate}</h3>
+        <h3>
+        <Button
+          type="button"
+          size="sm"
+          style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0'}}
+
+        >
+          &#8249;	
+        </Button>
+      <Button
+          type="button"
+          size="sm"
+          style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0', marginRight: '25px'}}
+        >
+          &#8250;	
+        </Button> 
+         Sun, {firstDate} - Sat, {lastDate}
+          </h3>
 
       <Table className="bg-white">
         <thead>

@@ -37,6 +37,7 @@ const TodoItem: React.FC<Props> = props => {
           className="btn btn-success mr-2"
           size="sm"
           onClick={toggleComplete}
+          style={{'borderRadius':'20px'}}
         >
           &#x2713;
         </Button>
@@ -45,6 +46,7 @@ const TodoItem: React.FC<Props> = props => {
           className="btn btn-sm btn-danger"
           size="sm"
           onClick={removeNode}
+          style={{'borderRadius':'20px'}}
         >
           &#xff38;
         </Button>

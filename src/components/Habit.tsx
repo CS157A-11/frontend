@@ -44,7 +44,7 @@ const Habit: React.FC<Props> = props => {
       {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
         <td key={day} className="text-center">
           <Button
-            variant={props.habit.complete ? "primary" : "light"}
+            variant={props.habit.complete ? "primary" : "outline-primary"}
             onClick={toggleComplete}  
             size="lg"       
           >
