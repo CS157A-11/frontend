@@ -7,12 +7,55 @@ import Habit from "./Habit";
 import { Table } from "react-bootstrap";
 import { callbackify } from 'util';
 
+//TODO: Move date stuff to another class and pass it in somehow? to make it cleaner 
+
+let today = new Date();
+const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+let day = today.getDay();
+let dayOfWeek = days[day];
+let start:Date = today;
+let end:Date = today; 
+
+if(dayOfWeek != "Sun") { 
+  let today = new Date();
+  let currDate = today; 
+  for(let i=0; i<7; i++) { 
+    if(currDate.getDay() != 0) { 
+      currDate.setDate(currDate.getDate() - 1); 
+    } else {
+      start = currDate;  
+    }
+  }
+} else {
+  start = today; 
+}
+
+if(dayOfWeek != "Sat") {
+  let today = new Date() 
+  let currDate = today; 
+  for(let i=0; i<7; i++) {
+    if(currDate.getDay() != 6) { 
+      currDate.setDate(currDate.getDate() + 1); 
+    } else {
+      end = currDate;  
+    }
+  }
+} else {
+  end = today; 
+}
+
+let firstDate = start.getMonth()+1 + "/" + start.getDate();  
+let lastDate = end.getMonth()+1 + "/" + end.getDate(); 
+
+ 
 let lastDayOfMonth = moment().daysInMonth();
 
 const daysOfMonth:number[] = [];
 for(let i=0; i<lastDayOfMonth; i++) { 
    daysOfMonth.push(i+1);
 }
+
+//TODO: Move everything above interface to another class and pass it in 
 
 export interface HabitType {
   id: number;
@@ -44,13 +87,15 @@ const Habits: React.FC = () => {
   return (
     <div className="habits mt-3">
 
-      <h2>Habits:</h2>
+      {/* <h2>Habits:</h2> */} 
+
+      <h3>Sun, {firstDate} - Sat, {lastDate}</h3>
 
       <Table className="bg-white">
         <thead>
           <tr align="center">   
             <th></th>
-            {["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"].map(day => (
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
               <th key={day} className="name p-2">
                 {day}
               </th>
@@ -66,4 +111,5 @@ const Habits: React.FC = () => {
     </div>
   );
 };
-export default Habits;
+
+export default Habits; 

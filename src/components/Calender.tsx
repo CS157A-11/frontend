@@ -1,4 +1,5 @@
 import React from "react";
+import Habits from "./Habits"; 
 
 const Calendar: React.FC = () => {
   const calendar = ["sun", "mon", "tue", "wed", "ths", "fri", "sat"].map(

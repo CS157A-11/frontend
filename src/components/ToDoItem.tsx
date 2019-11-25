@@ -26,7 +26,7 @@ const TodoItem: React.FC<Props> = props => {
   }
 
   return (
-    <ListGroup.Item
+    <ListGroup.Item 
       className="w-100 d-flex justify-content-between align-items-center"
       variant={props.todo.complete ? "success" : undefined}
     >

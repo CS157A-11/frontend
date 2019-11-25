@@ -11,8 +11,8 @@ let year = today.getFullYear();
 
 const App: React.FC = () => {
   return (
-    <div className="p-5">
-      <h1>[yourName]'s Habit Tracker</h1>
+    <div className="p-5" style={{backgroundColor: "white"}}>
+      <h1>Hey there, [name]</h1>
       <h1>{monthName} {year}</h1> 
       <Habits />
       <TodoBox />

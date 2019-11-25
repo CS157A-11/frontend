@@ -41,7 +41,7 @@ const Habit: React.FC<Props> = props => {
       <td className="title" style={{ color: props.habit.color }}>
         {props.habit.name}
       </td>
-      {["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"].map(day => (
+      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
         <td key={day} className="text-center">
           <Button
             variant={props.habit.complete ? "primary" : "light"}
