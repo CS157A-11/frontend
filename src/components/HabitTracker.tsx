@@ -2,6 +2,7 @@ import React from 'react';
 //import { Row, Col } from "react-bootstrap";
 import TodoBox from "./ToDoBox";
 import Habits from "./Habits";
+import Moods from "./Moods";
 
 let today = new Date();
 let monthNumber = today.getMonth();
@@ -15,6 +16,7 @@ const HabitTracker: React.FC = () => {
       <h1>Hey there, [name]</h1>
       <h1>{monthName} {year}</h1> 
       <Habits />
+      <Moods />
       <TodoBox />
     </div>
   );

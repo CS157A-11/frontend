@@ -39,7 +39,7 @@ const Habit: React.FC<Props> = props => {
   return (
     <tr className="habit" key={props.habit.name}>
       <td className="title" style={{ color: props.habit.color }}>
-        {props.habit.name}
+        {props.habit.name}        
       </td>
       {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
         <td key={day} className="text-center">

@@ -1,4 +1,4 @@
-//! Will need to later remove the generate page out of the navbar 
+//! TEMPORARILY IN NAVBAR: Will need to later remove the generate page out of the navbar and use sessions instead
 
 import React, { useState } from 'react';
 import { Form, ListGroup, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
