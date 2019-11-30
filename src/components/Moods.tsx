@@ -6,27 +6,39 @@ import { Table } from 'react-bootstrap';
 export interface MoodType {
     id: number;
     name: string;
+    type: string; 
     selected: boolean;
-  }
+}
+
+export interface MoodOfTheDay {
+  id: number;
+  date: Date;
+}
 
 const Moods: React.FC = () => {
     const [moods, setMood] = useState<MoodType[]>([
-        { id: 1, name: "happy", selected: false},
-        { id: 1, name: "focused", selected: false},
-        { id: 1, name: "productive", selected: false},
-        { id: 1, name: "motivated", selected: false},
-        { id: 1, name: "neutral", selected: false},
-        { id: 1, name: "sad", selected: false},
-        { id: 1, name: "angry", selected: false},
-        { id: 1, name: "tired", selected: false},
-        { id: 1, name: "lazy", selected: false},
+        { id: 1, name: "happy", type: "positive", selected: false},
+        { id: 1, name: "focused", type: "positive", selected: false},
+        { id: 1, name: "productive", type: "positive", selected: false},
+        { id: 1, name: "motivated", type: "positive", selected: false},
+        { id: 1, name: "neutral", type: "neutral", selected: false},
+        { id: 1, name: "sad", type: "negative", selected: false},
+        { id: 1, name: "angry", type: "negative", selected: false},
+        { id: 1, name: "tired", type: "negative", selected: false},
+        { id: 1, name: "lazy", type: "negative", selected: false},
     ]);
+
+    const [moodOfTheDay, setMoodOfTheDay] = useState<MoodOfTheDay[]>([
+      
+    ]);
+    
     
     return (
         <div className="moods mt-3">
-          <Table className="bg-white">
+          {/* className="bg-white"  */}
+          <Table style={{background: "white"}}>
             <thead>
-              <tr align="center">   
+              <tr style={{textAlign: "center"}}>   
                 {[].map(day => (
                   <th key={day} className="name p-2">
                     {day}

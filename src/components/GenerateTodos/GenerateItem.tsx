@@ -1,5 +1,5 @@
 import React from "react";
-import { ToDoType } from "./ToDoBox";
+import { ToDoType } from "../GenerateHabits";
 import { Button, ListGroup } from "react-bootstrap";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   toggleComplete(todoId: number): void;
 }
 
-const TodoItem: React.FC<Props> = props => {
+const GenerateItem: React.FC<Props> = props => {
   const removeNode = (e: React.MouseEvent) => {
     e.preventDefault();
     props.removeTodo(props.todo.id);
@@ -28,7 +28,7 @@ const TodoItem: React.FC<Props> = props => {
   return (
     <ListGroup.Item 
       className="w-100 d-flex justify-content-between align-items-center"
-      variant={props.todo.complete ? "success" : undefined} 
+      variant={props.todo.complete ? "success" : undefined}
     >
       {props.todo.task}
       <div className="ml-4" role="group">
@@ -55,4 +55,4 @@ const TodoItem: React.FC<Props> = props => {
   );
 };
 
-export default TodoItem;
+export default GenerateItem;

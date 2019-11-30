@@ -1,5 +1,6 @@
 import React from 'react';
 import { HabitType } from "./Habits";
+import HabitSquare from "./HabitSquare";
 let moment = require('moment');
 moment().format();
 import { Button } from "react-bootstrap";
@@ -14,7 +15,8 @@ for(let i=0; i<lastDayOfMonth; i++) {
 /* Components */
 interface Props {
   habit: HabitType;
-  toggleComplete(todoId: number): void;
+  toggleComplete(todoId: number, date: string): void;
+  isCompleted(id: number, date: string): boolean;
 }
 
 const Habit: React.FC<Props> = props => {
@@ -30,11 +32,6 @@ const Habit: React.FC<Props> = props => {
   // onSubmit(event) {
   // }
 
-  const toggleComplete = (e: React.MouseEvent) => {
-    e.preventDefault();
-    props.toggleComplete(props.habit.id);
-  };
-
   /* Render habit */
   return (
     <tr className="habit" key={props.habit.name}>
@@ -43,12 +40,7 @@ const Habit: React.FC<Props> = props => {
       </td>
       {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
         <td key={day} className="text-center">
-          <Button
-            variant={props.habit.complete ? "primary" : "outline-primary"}
-            onClick={toggleComplete}  
-            size="lg"       
-          >
-          </Button>
+          <HabitSquare habit={props.habit} date={day} toggleComplete={props.toggleComplete} isCompleted={props.isCompleted} />
         </td>
       ))}
     </tr>

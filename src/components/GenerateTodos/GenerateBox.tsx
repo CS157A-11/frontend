@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import TodoList from "./ToDoList";
-import TodoForm from "./ToDoForm";
+import GenerateList from "./GenerateList";
+import GenerateForm from "./GenerateForm";
 
 export interface ToDoType {
   id: number;
@@ -8,19 +8,13 @@ export interface ToDoType {
   complete: boolean;
 }
 
-const TodoBox: React.FC = () => {
+const GenerateBox: React.FC = () => {
   const [todos, setTodos] = useState<ToDoType[]>([
-    { id: 1, task: "HW 1", complete: false },
-    { id: 2, task: "HW 2", complete: false },
-    { id: 3, task: "Register for classes", complete: false }
+
   ]);
 
   const generateId = () => {
-    if(todos.length === 0) {
-      return 1; 
-    } else {
-      return Math.max(...todos.map(todo => todo.id)) + 1;
-    }
+    return Math.max(...todos.map(todo => todo.id)) + 1;
   };
   const handleRemoveTodo = (todoId: number): void => {
     setTodos(todos.filter(todo => todo.id !== todoId));
@@ -37,15 +31,15 @@ const TodoBox: React.FC = () => {
 
   return (
     <>
-      <h3>Todo List:</h3>
-      <TodoList
+      <h3>Add Todos:</h3>
+      <GenerateList
         todos={todos}
         removeTodo={handleRemoveTodo}
         toggleComplete={handleToggleComplete}
       />
-      <TodoForm handleSubmit={handleSubmit} />
+      <GenerateForm handleSubmit={handleSubmit} />
     </>
   );
 };
 
-export default TodoBox;
+export default GenerateBox;

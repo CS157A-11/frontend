@@ -64,6 +64,11 @@ export interface HabitType {
   complete: boolean;
 }
 
+export interface CompletedHabit {
+  id: number;
+  date: string; 
+}
+
 const Habits: React.FC = () => {
   const [habits, setHabits] = useState<HabitType[]>([
     { id: 1, name: "sleep early", color: "#e83e8c", complete: false},
@@ -76,13 +81,32 @@ const Habits: React.FC = () => {
     { id: 8, name: "take vitamins", color: "#007bff", complete: false},
     { id: 9, name: "wake up early", color: "#ffc107", complete: false},
   ]);
+
+  const [completedHabits, setCompletedHabits] = useState<CompletedHabit[]>([
+    
+  ]);
   
-  const handleToggleComplete = (id: number): void => {
-    const newHabits = [...habits];
-    const targetHabit = newHabits.find(habit => habit.id === id) as HabitType;
-    targetHabit.complete = !targetHabit.complete;
-    setHabits(newHabits);
+  /* Add habit to completed habits array when clicked */ 
+  const handleToggleComplete = (newId: number, newDate: string): void => {
+    const newCompletedHabits = [...completedHabits];
+    newCompletedHabits.push( {id: newId, date: newDate} ); 
+    setCompletedHabits(newCompletedHabits);
+    console.log(completedHabits);
   };
+  
+  /* Check if habit is in the completed habits array */ 
+  const isCompleted = (id: number, date: string): boolean => {
+    const target = completedHabits.find(completedHabit => completedHabit.id == id) as CompletedHabit;
+    if(target != null) {
+      if(target.date == date) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false; 
+    }
+  }
   
   return (
     <div className="habits mt-3">
@@ -107,9 +131,10 @@ const Habits: React.FC = () => {
          Sun, {firstDate} - Sat, {lastDate}
           </h3>
 
-      <Table className="bg-white">
+          {/* className="bg-white"  */}
+      <Table style={{background: "white"}}>
         <thead>
-          <tr align="center">   
+          <tr style={{textAlign:"center"}}>   
             <th></th>
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
               <th key={day} className="name p-2">
@@ -120,7 +145,7 @@ const Habits: React.FC = () => {
         </thead>
         <tbody>
           {habits.map((habit: HabitType) => (
-            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete}/>
+            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} />
           ))}
         </tbody>
       </Table>
