@@ -83,26 +83,37 @@ const Habits: React.FC = () => {
   ]);
 
   const [completedHabits, setCompletedHabits] = useState<CompletedHabit[]>([
-    
+  
   ]);
   
   /* Add habit to completed habits array when clicked */ 
-  const handleToggleComplete = (newId: number, newDate: string): void => {
-    const newCompletedHabits = [...completedHabits];
-    newCompletedHabits.push( {id: newId, date: newDate} ); 
-    setCompletedHabits(newCompletedHabits);
-    console.log(completedHabits);
+  const handleToggleComplete = (id: number, date: string): void => {
+    const filteredArray = completedHabits.filter(
+      completedHabit => completedHabit.id === id && completedHabit.date == date);
+    
+    if(filteredArray.length != 0) { 
+      const newCompletedHabits = [...completedHabits]; 
+      for(let i=0; i<newCompletedHabits.length; i++) {
+        if(newCompletedHabits[i].id === id && newCompletedHabits[i].date === date) {
+          newCompletedHabits.splice(i, 1); 
+        }
+      }
+      setCompletedHabits(newCompletedHabits);
+    } else { 
+      const newCompletedHabits = [...completedHabits];
+      newCompletedHabits.push( {id: id, date: date} ); 
+      setCompletedHabits(newCompletedHabits);
+    }
   };
-  
+
+  console.log(completedHabits);
+
   /* Check if habit is in the completed habits array */ 
   const isCompleted = (id: number, date: string): boolean => {
-    const target = completedHabits.find(completedHabit => completedHabit.id == id) as CompletedHabit;
-    if(target != null) {
-      if(target.date == date) {
-        return true;
-      } else {
-        return false;
-      }
+    const filteredArray = completedHabits.filter(
+      completedHabit => completedHabit.id === id && completedHabit.date == date);
+    if(filteredArray.length != 0) {
+      return true; 
     } else {
       return false; 
     }
