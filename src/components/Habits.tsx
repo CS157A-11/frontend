@@ -69,6 +69,17 @@ export interface CompletedHabit {
   date: string; 
 }
 
+export interface WeeklyView {
+  date: Date; 
+  weekHeading: string; 
+  dayOfWeek: string; 
+}
+
+export interface WeeklyDatesHeader {
+  firstDate: string; 
+  lastDate: string; 
+}
+
 const Habits: React.FC = () => {
   const [habits, setHabits] = useState<HabitType[]>([
     { id: 1, name: "sleep early", color: "#e83e8c", complete: false},
@@ -85,8 +96,73 @@ const Habits: React.FC = () => {
   const [completedHabits, setCompletedHabits] = useState<CompletedHabit[]>([
   
   ]);
-  
-  /* Add habit to completed habits array when clicked */ 
+
+  const [weeklyView, setWeeklyView] = useState<WeeklyView[]>([
+
+  ]); 
+
+  const [weeklyDatesHeader, setWeeklyDatesHeader] = useState<WeeklyDatesHeader[]>([
+    { firstDate: start.getMonth()+1 + "/" + start.getDate(),
+     lastDate: end.getMonth()+1 + "/" + end.getDate() }
+  ]); 
+
+
+  const setNewWeeklyDates = (startDate: Date, stopDate: Date): void => {
+    let datesArray:WeeklyView[] = [];
+    let currentDate:Date = moment(startDate); 
+    let lastDate:Date = moment(stopDate); 
+    while(currentDate <= lastDate) { 
+      currentDate = moment(currentDate);
+
+      let weekHeading = currentDate.getMonth().toString() + "/" + currentDate.getDate().toString();
+      let dayNumber = moment(currentDate).getDay(); 
+      let dayOfWeek = days[dayNumber]; 
+
+      datesArray.push( {date: currentDate, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
+      currentDate = moment(currentDate).add(1, 'days');
+    }
+    setWeeklyView(datesArray);
+  }
+
+  const handleTogglePrevWeek = (start: Date, end: Date): void => {
+    start.setDate(start.getDate()-7); 
+    end.setDate(end.getDate()-7);
+
+    const newWeeklyDatesHeader = []; 
+    
+    firstDate = start.getMonth()+1 + "/" + start.getDate();  
+    lastDate = end.getMonth()+1 + "/" + end.getDate(); 
+
+    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate} ); 
+    setWeeklyDatesHeader(newWeeklyDatesHeader);
+  }
+
+  const handleToggleNextWeek = (start: Date, end: Date): void => {
+    start.setDate(start.getDate()+7);
+    end.setDate(end.getDate()+7); 
+    // change state in weekly dates 
+
+    const newWeeklyDatesHeader = []; 
+    
+    firstDate = start.getMonth()+1 + "/" + start.getDate();  
+    lastDate = end.getMonth()+1 + "/" + end.getDate(); 
+
+    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate} ); 
+    setWeeklyDatesHeader(newWeeklyDatesHeader);
+  }
+
+  const togglePrevWeek = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleTogglePrevWeek(start, end);
+  }
+
+  const toggleNextWeek = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleToggleNextWeek(start, end);
+  }
+
+  /* Add habit to completed habits array when clicked, 
+     remove from array if you click on a completed habit again */ 
   const handleToggleComplete = (id: number, date: string): void => {
     const filteredArray = completedHabits.filter(
       completedHabit => completedHabit.id === id && completedHabit.date == date);
@@ -106,8 +182,6 @@ const Habits: React.FC = () => {
     }
   };
 
-  console.log(completedHabits);
-
   /* Check if habit is in the completed habits array */ 
   const isCompleted = (id: number, date: string): boolean => {
     const filteredArray = completedHabits.filter(
@@ -119,6 +193,7 @@ const Habits: React.FC = () => {
     }
   }
   
+
   return (
     <div className="habits mt-3">
 
@@ -128,7 +203,7 @@ const Habits: React.FC = () => {
           type="button"
           size="sm"
           style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0'}}
-
+          onClick={togglePrevWeek}
         >
           &#8249;	
         </Button>
@@ -136,10 +211,12 @@ const Habits: React.FC = () => {
           type="button"
           size="sm"
           style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0', marginRight: '25px'}}
+          onClick={toggleNextWeek} 
         >
           &#8250;	
         </Button> 
          Sun, {firstDate} - Sat, {lastDate}
+         {console.log(firstDate)}
           </h3>
 
           {/* className="bg-white"  */}
