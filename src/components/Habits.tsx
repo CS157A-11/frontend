@@ -55,6 +55,11 @@ for(let i=0; i<lastDayOfMonth; i++) {
    daysOfMonth.push(i+1);
 }
 
+let monthNumber = start.getMonth();
+let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let monthName = monthNames[monthNumber];
+let year = start.getFullYear(); 
+
 //TODO: Move everything above interface to another class and pass it in 
 
 export interface HabitType {
@@ -78,6 +83,8 @@ export interface WeeklyView {
 export interface WeeklyDatesHeader {
   firstDate: string; 
   lastDate: string; 
+  monthName: string;
+  year: number;
 }
 
 const Habits: React.FC = () => {
@@ -102,8 +109,10 @@ const Habits: React.FC = () => {
   ]); 
 
   const [weeklyDatesHeader, setWeeklyDatesHeader] = useState<WeeklyDatesHeader[]>([
-    { firstDate: start.getMonth()+1 + "/" + start.getDate(),
-     lastDate: end.getMonth()+1 + "/" + end.getDate() }
+    { firstDate: start.getMonth()+1 + "/" + start.getDate(), 
+      lastDate: end.getMonth()+1 + "/" + end.getDate(), 
+      monthName: monthNames[start.getMonth()], 
+      year: start.getFullYear() }, 
   ]); 
 
 
@@ -124,6 +133,7 @@ const Habits: React.FC = () => {
     setWeeklyView(datesArray);
   }
 
+
   const handleTogglePrevWeek = (start: Date, end: Date): void => {
     start.setDate(start.getDate()-7); 
     end.setDate(end.getDate()-7);
@@ -132,8 +142,10 @@ const Habits: React.FC = () => {
     
     firstDate = start.getMonth()+1 + "/" + start.getDate();  
     lastDate = end.getMonth()+1 + "/" + end.getDate(); 
+    monthName = monthNames[start.getMonth()];  
+    year = start.getFullYear(); 
 
-    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate} ); 
+    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate, monthName: monthName, year: year} ); 
     setWeeklyDatesHeader(newWeeklyDatesHeader);
   }
 
@@ -146,8 +158,10 @@ const Habits: React.FC = () => {
     
     firstDate = start.getMonth()+1 + "/" + start.getDate();  
     lastDate = end.getMonth()+1 + "/" + end.getDate(); 
+    monthName = monthNames[start.getMonth()]; 
+    year = start.getFullYear(); 
 
-    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate} ); 
+    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate, monthName: monthName, year: year} ); 
     setWeeklyDatesHeader(newWeeklyDatesHeader);
   }
 
@@ -196,8 +210,9 @@ const Habits: React.FC = () => {
 
   return (
     <div className="habits mt-3">
+      <h1>Hey there, [name]</h1>
+      <h1>{monthName} {year}</h1> 
 
-      {/* <h2>Habits:</h2> */} 
         <h3>
         <Button
           type="button"
