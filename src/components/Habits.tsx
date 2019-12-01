@@ -5,6 +5,7 @@ moment().format();
 
 /* Components */
 import Habit from "./Habit";
+import WeeklyView from "./WeeklyView"
 import { Table } from "react-bootstrap";
 import { callbackify } from 'util';
 
@@ -105,7 +106,32 @@ const Habits: React.FC = () => {
   ]);
 
   const [weeklyView, setWeeklyView] = useState<WeeklyView[]>([
-
+     { date: start,
+        weekHeading: firstDate,
+        dayOfWeek: days[start.getDay()] },
+     { date: new Date(start.getFullYear(), start.getMonth(), start.getDate()+1),
+       weekHeading: (new Date(start.getFullYear(), start.getMonth(), start.getDate()+1)).getMonth()+1
+          + "/" + (new Date(start.getFullYear(), start.getMonth(), start.getDate()+1)).getDate(),
+       dayOfWeek: "Mon" },
+     { date: new Date(start.getFullYear(), start.getMonth(), start.getDate()+2),
+       weekHeading: (new Date(start.getFullYear(), start.getMonth(), start.getDate()+2)).getMonth()+1 
+          + "/" + (new Date(start.getFullYear(), start.getMonth(), start.getDate()+2)).getDate(),
+       dayOfWeek: "Tue" },
+     { date: new Date(start.getFullYear(), start.getMonth(), start.getDate()+3),
+       weekHeading: (new Date(start.getFullYear(), start.getMonth(), start.getDate()+3)).getMonth()+1 
+          + "/" + (new Date(start.getFullYear(), start.getMonth(), start.getDate()+3)).getDate(), 
+       dayOfWeek: "Wed" },
+     { date: new Date(start.getFullYear(), start.getMonth(), start.getDate()+4),
+       weekHeading: (new Date(start.getFullYear(), start.getMonth(), start.getDate()+4)).getMonth()+1 
+          + "/" + (new Date(start.getFullYear(), start.getMonth(), start.getDate()+4)).getDate(),
+       dayOfWeek: "Thu" },
+     { date: new Date(start.getFullYear(), start.getMonth(), start.getDate()+5),
+       weekHeading: (new Date(start.getFullYear(), start.getMonth(), start.getDate()+5)).getMonth()+1 
+          + "/" + (new Date(start.getFullYear(), start.getMonth(), start.getDate()+5)).getDate(),
+       dayOfWeek: "Fri" },
+     { date: end,
+       weekHeading: lastDate,
+       dayOfWeek: days[end.getDay()] },
   ]); 
 
   const [weeklyDatesHeader, setWeeklyDatesHeader] = useState<WeeklyDatesHeader[]>([
@@ -116,53 +142,62 @@ const Habits: React.FC = () => {
   ]); 
 
 
-  const setNewWeeklyDates = (startDate: Date, stopDate: Date): void => {
-    let datesArray:WeeklyView[] = [];
-    let currentDate:Date = moment(startDate); 
-    let lastDate:Date = moment(stopDate); 
-    while(currentDate <= lastDate) { 
-      currentDate = moment(currentDate);
+  const handleTogglePrevWeek = (startDate: Date, endDate: Date): void => {
+    let startCopy = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()-7); 
+    let endCopy = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()-7); 
 
-      let weekHeading = currentDate.getMonth().toString() + "/" + currentDate.getDate().toString();
-      let dayNumber = moment(currentDate).getDay(); 
+    startDate.setDate(startDate.getDate()-7); 
+    endDate.setDate(endDate.getDate()-7);
+
+    const newWeeklyDatesHeader = []; 
+    
+    firstDate = startDate.getMonth()+1 + "/" + startDate.getDate();  
+    lastDate = endDate.getMonth()+1 + "/" + endDate.getDate(); 
+    monthName = monthNames[startDate.getMonth()];  
+    year = start.getFullYear(); 
+
+    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate, monthName: monthName, year: year} ); 
+    setWeeklyDatesHeader(newWeeklyDatesHeader);
+
+    const newWeeklyView = [];
+
+    for(var d=startCopy; d<=endCopy; d.setDate(d.getDate()+1)) { 
+      let weekHeading = d.getMonth()+1 + "/" + (d.getDate()); 
+      let dayNumber = d.getDay();
       let dayOfWeek = days[dayNumber]; 
 
-      datesArray.push( {date: currentDate, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
-      currentDate = moment(currentDate).add(1, 'days');
+      newWeeklyView.push( {date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
     }
-    setWeeklyView(datesArray);
+    setWeeklyView(newWeeklyView);
   }
 
+  const handleToggleNextWeek = (startDate: Date, endDate: Date): void => {
+    let startCopy = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+7); 
+    let endCopy = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()+7); 
 
-  const handleTogglePrevWeek = (start: Date, end: Date): void => {
-    start.setDate(start.getDate()-7); 
-    end.setDate(end.getDate()-7);
+    startDate.setDate(startDate.getDate()+7);
+    endDate.setDate(endDate.getDate()+7);     
 
     const newWeeklyDatesHeader = []; 
     
-    firstDate = start.getMonth()+1 + "/" + start.getDate();  
-    lastDate = end.getMonth()+1 + "/" + end.getDate(); 
-    monthName = monthNames[start.getMonth()];  
-    year = start.getFullYear(); 
+    firstDate = startDate.getMonth()+1 + "/" + startDate.getDate();  
+    lastDate = endDate.getMonth()+1 + "/" + endDate.getDate(); 
+    monthName = monthNames[startDate.getMonth()]; 
+    year = startDate.getFullYear(); 
 
     newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate, monthName: monthName, year: year} ); 
     setWeeklyDatesHeader(newWeeklyDatesHeader);
-  }
 
-  const handleToggleNextWeek = (start: Date, end: Date): void => {
-    start.setDate(start.getDate()+7);
-    end.setDate(end.getDate()+7); 
-    // change state in weekly dates 
+    const newWeeklyView = [];
 
-    const newWeeklyDatesHeader = []; 
-    
-    firstDate = start.getMonth()+1 + "/" + start.getDate();  
-    lastDate = end.getMonth()+1 + "/" + end.getDate(); 
-    monthName = monthNames[start.getMonth()]; 
-    year = start.getFullYear(); 
+    for(var d=startCopy; d<=endCopy; d.setDate(d.getDate()+1)) { 
+      let weekHeading = d.getMonth()+1 + "/" + (d.getDate()); 
+      let dayNumber = d.getDay();
+      let dayOfWeek = days[dayNumber]; 
 
-    newWeeklyDatesHeader.push( { firstDate: firstDate, lastDate: lastDate, monthName: monthName, year: year} ); 
-    setWeeklyDatesHeader(newWeeklyDatesHeader);
+      newWeeklyView.push( {date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
+    }
+    setWeeklyView(newWeeklyView);
   }
 
   const togglePrevWeek = (e: React.MouseEvent) => {
@@ -231,7 +266,6 @@ const Habits: React.FC = () => {
           &#8250;	
         </Button> 
          Sun, {firstDate} - Sat, {lastDate}
-         {console.log(firstDate)}
           </h3>
 
           {/* className="bg-white"  */}
@@ -239,9 +273,10 @@ const Habits: React.FC = () => {
         <thead>
           <tr style={{textAlign:"center"}}>   
             <th></th>
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => (
-              <th key={day} className="name p-2">
-                {day}
+            {weeklyView.map(day => (
+              <th key={day.weekHeading} className="name p-2">
+                {/* {day.weekHeading} */}
+                <WeeklyView weekHeading={day.weekHeading} />
               </th>
             ))}
           </tr>

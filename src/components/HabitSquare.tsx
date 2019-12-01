@@ -20,7 +20,7 @@ const HabitSquare: React.FC<Props> = props => {
       <Button
         variant={props.isCompleted(props.habit.id, props.date) ? "primary" : "outline-primary"}
         onClick={toggleComplete}  
-        size="lg"       
+        size="lg"   
       >
       </Button>
   );
