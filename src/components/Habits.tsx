@@ -72,7 +72,7 @@ export interface HabitType {
 
 export interface CompletedHabit {
   id: number;
-  date: string; 
+  date: Date; 
 }
 
 export interface WeeklyView {
@@ -212,7 +212,7 @@ const Habits: React.FC = () => {
 
   /* Add habit to completed habits array when clicked, 
      remove from array if you click on a completed habit again */ 
-  const handleToggleComplete = (id: number, date: string): void => {
+  const handleToggleComplete = (id: number, date: Date): void => {
     const filteredArray = completedHabits.filter(
       completedHabit => completedHabit.id === id && completedHabit.date == date);
     
@@ -232,7 +232,7 @@ const Habits: React.FC = () => {
   };
 
   /* Check if habit is in the completed habits array */ 
-  const isCompleted = (id: number, date: string): boolean => {
+  const isCompleted = (id: number, date: Date): boolean => {
     const filteredArray = completedHabits.filter(
       completedHabit => completedHabit.id === id && completedHabit.date == date);
     if(filteredArray.length != 0) {
@@ -242,6 +242,7 @@ const Habits: React.FC = () => {
     }
   }
   
+  console.log(completedHabits);
 
   return (
     <div className="habits mt-3">
@@ -283,7 +284,7 @@ const Habits: React.FC = () => {
         </thead>
         <tbody>
           {habits.map((habit: HabitType) => (
-            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} />
+            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} weeklyView={weeklyView} /> 
           ))}
         </tbody>
       </Table>
