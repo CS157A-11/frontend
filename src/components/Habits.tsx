@@ -76,7 +76,6 @@ export interface CompletedHabit {
 }
 
 export interface WeeklyView {
-  id: number; 
   date: Date; 
   weekHeading: string; 
   dayOfWeek: string; 
@@ -107,39 +106,32 @@ const Habits: React.FC = () => {
   ]);
 
   const [weeklyView, setWeeklyView] = useState<WeeklyView[]>([
-     {  id: 1,
-        date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+     {  date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
         weekHeading: firstDate,
-        dayOfWeek: days[startDate.getDay()] },
-     { id: 2, 
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1),
+        dayOfWeek: "Sun" },
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1),
        weekHeading: (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1)).getMonth()+1
           + "/" + (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1)).getDate(),
        dayOfWeek: "Mon" },
-     { id: 3,
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+2),
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+2),
        weekHeading: (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+2)).getMonth()+1 
           + "/" + (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+2)).getDate(),
        dayOfWeek: "Tue" },
-     { id: 4,  
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+3),
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+3),
        weekHeading: (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+3)).getMonth()+1 
           + "/" + (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+3)).getDate(), 
        dayOfWeek: "Wed" },
-     { id: 5, 
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+4),
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+4),
        weekHeading: (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+4)).getMonth()+1 
           + "/" + (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+4)).getDate(),
        dayOfWeek: "Thu" },
-     { id: 6, 
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5),
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5),
        weekHeading: (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5)).getMonth()+1 
           + "/" + (new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5)).getDate(),
        dayOfWeek: "Fri" },
-     { id: 7, 
-       date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+6), 
+     { date: new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+6), 
        weekHeading: lastDate,
-       dayOfWeek: days[endDate.getDay()] },
+       dayOfWeek: "Sat" },
   ]); 
 
   const [weeklyDatesHeader, setWeeklyDatesHeader] = useState<WeeklyDatesHeader[]>([
@@ -171,16 +163,14 @@ const Habits: React.FC = () => {
 
     const newWeeklyView = [];
 
-    let id = 1; 
     let i = 0;
     for(let d=startCopy; d<=endCopy; d = new Date(startCopy.getFullYear(), startCopy.getMonth(), startCopy.getDate()+i)) { 
       let weekHeading = d.getMonth()+1 + "/" + (d.getDate()); 
       let dayNumber = d.getDay();
       let dayOfWeek = days[dayNumber]; 
 
-      newWeeklyView.push( {id: id, date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
+      newWeeklyView.push( {date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
 
-      id += 1; 
       i += 1;
     }
     setWeeklyView(newWeeklyView);
@@ -205,15 +195,14 @@ const Habits: React.FC = () => {
 
     const newWeeklyView = [];
 
-    let id = 1; 
     let i = 0;
     for(let d=startCopy; d<=endCopy; d = new Date(startCopy.getFullYear(), startCopy.getMonth(), startCopy.getDate()+i)) { 
       let weekHeading = d.getMonth()+1 + "/" + (d.getDate()); 
       let dayNumber = d.getDay();
       let dayOfWeek = days[dayNumber]; 
 
-      newWeeklyView.push( {id: id, date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
-      id += 1; 
+      newWeeklyView.push( {date: d, weekHeading: weekHeading, dayOfWeek: dayOfWeek} );
+
       i += 1;
     }
     setWeeklyView(newWeeklyView);
@@ -261,6 +250,8 @@ const Habits: React.FC = () => {
       return false; 
     }
   } 
+
+  console.log(weeklyView); 
   
   return (
     <div className="habits mt-3">
@@ -293,7 +284,7 @@ const Habits: React.FC = () => {
           <tr style={{textAlign:"center"}}>   
             <th></th>
             {weeklyView.map(day => (
-              <th key={day.id} className="name p-2">
+              <th key={day.date.toString()} className="name p-2">
                 {/* {day.weekHeading} */}
                 {day.weekHeading}
                 {/* <WeeklyView weekHeading={day.weekHeading} /> */}

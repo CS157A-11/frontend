@@ -40,7 +40,7 @@ const Habit: React.FC<Props> = props => {
         {props.habit.name}        
       </td>
       {props.weeklyView.map(day => ( 
-        <td key={day.id} className="text-center">
+        <td key={day.date.toString()} className="text-center">
           <HabitSquare habit={props.habit} date={day.date} toggleComplete={props.toggleComplete} isCompleted={props.isCompleted} /> 
         </td>
       ))}
