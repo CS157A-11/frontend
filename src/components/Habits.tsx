@@ -242,6 +242,11 @@ const Habits: React.FC = () => {
     }
   } 
   
+<<<<<<< HEAD
+=======
+  console.log(completedHabits);
+
+>>>>>>> 69f4cee4c4c322ea8e1377246fdacfa3ca0e7803
   return (
     <div className="habits mt-3">
       <h1>Hey there, [name]</h1>
@@ -282,7 +287,7 @@ const Habits: React.FC = () => {
         </thead>
         <tbody>
           {habits.map((habit: HabitType) => (
-            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} />
+            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} /> 
           ))}
         </tbody>
       </Table>
