@@ -3,6 +3,7 @@ import { HabitType } from "./Habits";
 import HabitSquare from "./HabitSquare";
 let moment = require('moment');
 moment().format();
+import { WeeklyView } from "./Habits";
 
 let lastDayOfMonth = moment().daysInMonth();
 
@@ -14,9 +15,9 @@ for(let i=0; i<lastDayOfMonth; i++) {
 /* Components */
 interface Props {
   habit: HabitType;
-  toggleComplete(todoId: number, date: string): void; 
-  isCompleted(id: number, date: string): boolean; 
-  //weeklyView: WeeklyView[]; 
+  toggleComplete(todoId: number, date: Date): void; 
+  isCompleted(id: number, date: Date): boolean; 
+  weeklyView: WeeklyView[]; 
 }
 
 const Habit: React.FC<Props> = props => {
@@ -38,9 +39,9 @@ const Habit: React.FC<Props> = props => {
       <td className="title" style={{ color: props.habit.color }}>
         {props.habit.name}        
       </td>
-      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => ( 
-        <td key={day} className="text-center">
-          <HabitSquare habit={props.habit} date={day} toggleComplete={props.toggleComplete} isCompleted={props.isCompleted} /> 
+      {props.weeklyView.map(day => ( 
+        <td key={day.id} className="text-center">
+          <HabitSquare habit={props.habit} date={day.date} toggleComplete={props.toggleComplete} isCompleted={props.isCompleted} /> 
         </td>
       ))}
     </tr>
