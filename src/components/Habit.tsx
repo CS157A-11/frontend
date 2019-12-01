@@ -3,7 +3,6 @@ import { HabitType } from "./Habits";
 import HabitSquare from "./HabitSquare";
 let moment = require('moment');
 moment().format();
-import { Button } from "react-bootstrap";
 
 let lastDayOfMonth = moment().daysInMonth();
 

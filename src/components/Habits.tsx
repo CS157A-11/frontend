@@ -240,9 +240,8 @@ const Habits: React.FC = () => {
     } else {
       return false; 
     }
-  }
+  } 
   
-
   return (
     <div className="habits mt-3">
       <h1>Hey there, [name]</h1>

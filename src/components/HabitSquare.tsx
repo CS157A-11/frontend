@@ -25,5 +25,5 @@ const HabitSquare: React.FC<Props> = props => {
       </Button>
   );
 }
-
+ 
 export default HabitSquare;
