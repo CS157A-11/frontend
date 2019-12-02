@@ -26,9 +26,9 @@ const TodoItem: React.FC<Props> = props => {
   }
 
   return (
-    <ListGroup.Item 
+    <ListGroup.Item
       className="w-100 d-flex justify-content-between align-items-center"
-      variant={props.todo.complete ? "success" : undefined} 
+      variant={props.todo.complete ? "success" : undefined}
     >
       {props.todo.task}
       <div className="ml-4" role="group">
@@ -37,7 +37,7 @@ const TodoItem: React.FC<Props> = props => {
           className="btn btn-success mr-2"
           size="sm"
           onClick={toggleComplete}
-          style={{'borderRadius':'20px'}}
+          style={{ borderRadius: "20px" }}
         >
           &#x2713;
         </Button>
@@ -46,7 +46,7 @@ const TodoItem: React.FC<Props> = props => {
           className="btn btn-sm btn-danger"
           size="sm"
           onClick={removeNode}
-          style={{'borderRadius':'20px'}}
+          style={{ borderRadius: "20px" }}
         >
           &#xff38;
         </Button>

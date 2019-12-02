@@ -17,11 +17,11 @@ const TodoForm: React.FC<Props> = props => {
     setValue("");
   };
   return (
-    <form onSubmit={handleSubmit} style = {{ display: 'flex' }}>
+    <form onSubmit={handleSubmit} style={{ display: "flex" }}>
       <input
         type="text"
         className="input"
-        style = {{ flex: '10', padding: '5px', fontFamily: 'Open Sans'}}
+        style={{ flex: "10", padding: "5px", fontFamily: "Open Sans" }}
         placeholder="Add Todo ..."
         value={value}
         onChange={updateValue}
@@ -30,7 +30,12 @@ const TodoForm: React.FC<Props> = props => {
         type="submit"
         value="Submit"
         className="btn"
-        style={{ flex: '1', color: '#4b0082', backgroundColor: '#e6e6fa', fontFamily: 'Open Sans'}}
+        style={{
+          flex: "1",
+          color: "#4b0082",
+          backgroundColor: "#e6e6fa",
+          fontFamily: "Open Sans"
+        }}
       />
     </form>
   );

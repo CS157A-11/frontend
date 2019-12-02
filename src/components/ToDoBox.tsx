@@ -16,8 +16,8 @@ const TodoBox: React.FC = () => {
   ]);
 
   const generateId = () => {
-    if(todos.length === 0) {
-      return 1; 
+    if (todos.length === 0) {
+      return 1;
     } else {
       return Math.max(...todos.map(todo => todo.id)) + 1;
     }

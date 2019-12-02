@@ -1,16 +1,14 @@
-import React from 'react';
-//import { Row, Col } from "react-bootstrap";
+import React from "react";
 import TodoBox from "./ToDoBox";
 import Habits from "./Habits";
-import MoodDropdown from "./MoodDropdown";
 
-const HabitTracker: React.FC = () => {  
+const HabitTracker: React.FC = () => {
   return (
-    <div className="p-5" style={{background: "white"}}>
+    <div className="p-5" style={{ background: "white" }}>
       <Habits />
       <TodoBox />
     </div>
   );
-}
+};
 
 export default HabitTracker;

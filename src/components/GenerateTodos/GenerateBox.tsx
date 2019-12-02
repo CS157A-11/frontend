@@ -9,9 +9,7 @@ export interface ToDoType {
 }
 
 const GenerateBox: React.FC = () => {
-  const [todos, setTodos] = useState<ToDoType[]>([
-
-  ]);
+  const [todos, setTodos] = useState<ToDoType[]>([]);
 
   const generateId = () => {
     return Math.max(...todos.map(todo => todo.id)) + 1;

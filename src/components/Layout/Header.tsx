@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Navbar, NavDropdown, Nav, Form, FormControl } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 const Header: React.FC = () => {
   return (
     // bg = "light"
-    <Navbar style={{backgroundColor: "white"}} expand="lg">
+    <Navbar style={{ backgroundColor: "white" }} expand="lg">
       <Navbar.Brand href="home">Habit Tracker</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -16,6 +16,6 @@ const Header: React.FC = () => {
       </Navbar.Collapse>
     </Navbar>
   );
-}
+};
 
 export default Header;
