@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { formatWithOptions } from "util";
 
 interface Props {
   handleSubmit(val: string): void;
 }
 
-const TodoForm: React.FC<Props> = props => {
+const GenerateForm: React.FC<Props> = props => {
   const [value, setValue] = useState("");
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
@@ -41,4 +40,4 @@ const TodoForm: React.FC<Props> = props => {
   );
 };
 
-export default TodoForm;
+export default GenerateForm;

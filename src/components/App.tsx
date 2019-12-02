@@ -1,16 +1,34 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
-import TodoBox from "./ToDoBox";
-import Habits from "./Habits";
+//import { Row, Col } from "react-bootstrap";
+import Header from "./Layout/Header";
+import Routes from "./Routes";
 
-const App: React.FC = () => {
+// let today = new Date();
+// let monthNumber = today.getMonth();
+// let monthNames = [
+//   "January",
+//   "February",
+//   "March",
+//   "April",
+//   "May",
+//   "June",
+//   "July",
+//   "August",
+//   "September",
+//   "October",
+//   "November",
+//   "December"
+// ];
+// let monthName = monthNames[monthNumber];
+// let year = today.getFullYear();
+
+const HabitTracker: React.FC = () => {
   return (
-    <div className="p-5">
-      <h1>hey Test</h1>
-      <Habits />
-      <TodoBox />
+    <div style={{ backgroundColor: "white" }}>
+      <Header />
+      <Routes />
     </div>
   );
 };
 
-export default App;
+export default HabitTracker;

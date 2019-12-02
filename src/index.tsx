@@ -7,6 +7,7 @@ import store from "./configureStore";
 import { RootState } from "./modules";
 import { AppState, fetchEmp, appActions } from "./modules/appModule";
 import App from "./components/App";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const Root: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,10 @@ const Root: React.FC = () => {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Root />
-  </Provider>,
+  <Router>
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  </Router>,
   document.getElementById("app")
 );
