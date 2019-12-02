@@ -6,10 +6,8 @@ moment().format();
 /* Components */
 import Habit from "./Habit";
 //import WeeklyView from "./WeeklyView"
+import Moods from "./Moods"
 import { Table } from "react-bootstrap";
-import { callbackify } from 'util';
-import Moods from "./Moods"; 
-import HabitTracker from "./HabitTracker";
 
 //TODO: Move date stuff to another class and pass it in somehow? to make it cleaner 
 
@@ -254,54 +252,69 @@ const Habits: React.FC = () => {
   } 
   
   return (
-    <div className="habits mt-3">
-      <h1>Hey there, [name]</h1>
-      <h1>{monthName} {year}</h1> 
+    <div className="habittracker mt-3">
+      <div className="habits mt-3">
+        <h1>Hey there, [name]</h1>
+        <h1>{monthName} {year}</h1> 
 
-        <h3>
+          <h3>
+          <Button
+            type="button"
+            size="sm"
+            style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0'}}
+            onClick={togglePrevWeek}
+          >
+            &#8249;	
+          </Button>
         <Button
-          type="button"
-          size="sm"
-          style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0'}}
-          onClick={togglePrevWeek}
-        >
-          &#8249;	
-        </Button>
-      <Button
-          type="button"
-          size="sm"
-          style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0', marginRight: '25px'}}
-          onClick={toggleNextWeek} 
-        >
-          &#8250;	
-        </Button> 
-         Sun, {firstDate} - Sat, {lastDate}
-          </h3>
+            type="button"
+            size="sm"
+            style={{'borderRadius':'20px', margin:'5px', width: '33px', height: '33px', fontSize: '20px', textAlign: 'center', lineHeight: '0', marginRight: '25px'}}
+            onClick={toggleNextWeek} 
+          >
+            &#8250;	
+          </Button> 
+          Sun, {firstDate} - Sat, {lastDate}
+            </h3>
 
-          {/* className="bg-white"  */}
-      <Table style={{background: "white"}}>
-        <thead>
-          <tr style={{textAlign:"center"}}>   
-            <th></th>
-            {weeklyView.map(day => (
-              <th key={day.date.toString()} className="name p-2">
-                {/* {day.weekHeading} */}
-                {day.weekHeading}
-                {/* <WeeklyView weekHeading={day.weekHeading} /> */}
-              </th>
+            {/* className="bg-white"  */}
+        <Table style={{background: "white"}}>
+          <thead>
+            <tr style={{textAlign:"center"}}>   
+              <th></th>
+              {weeklyView.map(day => (
+                <th key={day.date.toString()} className="name p-2">
+                  {/* {day.weekHeading} */}
+                  {day.weekHeading}
+                  {/* <WeeklyView weekHeading={day.weekHeading} /> */}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {habits.map((habit: HabitType) => (
+              <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} weeklyView={weeklyView}/> 
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {habits.map((habit: HabitType) => (
-            <Habit key={habit.id} habit={habit} toggleComplete={handleToggleComplete} isCompleted={isCompleted} weeklyView={weeklyView}/> 
-          ))}
-        </tbody>
-      </Table>
-        {/* <div>
-          <Moods weeklyView={weeklyView} />
-          <HabitTracker weeklyView={weeklyView} />
-        </div> */}
+          </tbody>
+        </Table>
+        </div> 
+
+        <div className="moods mt-3">
+          <Table style={{background: "white"}}>
+            <thead>
+              <tr style={{textAlign: "center"}}>   
+                {[].map(day => (
+                  <th key={day} className="name p-2">
+            
+                  </th>
+                ))}
+              </tr>
+            </thead>
+              <tbody>
+                <Moods weeklyView={weeklyView} />
+             </tbody>
+          </Table>
+        </div>
       </div> 
   );
 };

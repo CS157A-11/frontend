@@ -1,11 +1,9 @@
-import React, {useState, SyntheticEvent } from 'react';
+import React, {useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
 /* Components */
 interface Props {
-  date: string;
-  //toggleSelectedMood(id: number, date: string): void;
-  //isSelected(id: number, date: Date): boolean;
+  date: Date;
 }
 
 export interface MoodType {
@@ -17,7 +15,7 @@ export interface MoodType {
 
 export interface MoodOfTheDay {
   name: string;
-  date: string;
+  date: Date;
 }
 
 const MoodDropdown: React.FC<Props> = props => {
@@ -34,7 +32,7 @@ const MoodDropdown: React.FC<Props> = props => {
     ]);
 
     const [moodOfTheDay, setMoodOfTheDay] = useState<MoodOfTheDay[]>([
-        {name: "tired", date: "Sun"}
+
     ]);
 
     const handleSelectedMood = (eventKey: any, event: Object):any => {
@@ -45,9 +43,6 @@ const MoodDropdown: React.FC<Props> = props => {
     }
 
     console.log(moodOfTheDay);
-    // const toggleSelectedMood = (eventKey: any) => {
-    //     handleSelectedMood(eventKey); 
-    // }; 
 
     return (   
         <Dropdown>
