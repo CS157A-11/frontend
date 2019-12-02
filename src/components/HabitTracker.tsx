@@ -3,8 +3,13 @@ import React from 'react';
 import TodoBox from "./ToDoBox";
 import Habits from "./Habits";
 import Moods from "./Moods";
+import { WeeklyView } from "./Habits"; 
 
-const HabitTracker: React.FC = () => {
+interface Props {
+  weeklyView: WeeklyView[]; 
+}
+
+const HabitTracker: React.FC<Props> = (props) => {  
   return (
     <div className="p-5" style={{background: "white"}}>
       <Habits />

@@ -5,9 +5,11 @@ moment().format();
 
 /* Components */
 import Habit from "./Habit";
-import WeeklyView from "./WeeklyView"
+//import WeeklyView from "./WeeklyView"
 import { Table } from "react-bootstrap";
 import { callbackify } from 'util';
+import Moods from "./Moods"; 
+import HabitTracker from "./HabitTracker";
 
 //TODO: Move date stuff to another class and pass it in somehow? to make it cleaner 
 
@@ -250,8 +252,6 @@ const Habits: React.FC = () => {
       return false; 
     }
   } 
-
-  console.log(weeklyView); 
   
   return (
     <div className="habits mt-3">
@@ -298,7 +298,11 @@ const Habits: React.FC = () => {
           ))}
         </tbody>
       </Table>
-    </div>
+        {/* <div>
+          <Moods weeklyView={weeklyView} />
+          <HabitTracker weeklyView={weeklyView} />
+        </div> */}
+      </div> 
   );
 };
 

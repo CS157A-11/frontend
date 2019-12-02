@@ -21,17 +21,6 @@ interface Props {
 }
 
 const Habit: React.FC<Props> = props => {
-  // onDoubleClick() {
-  //
-  // }
-  // onCancel() {
-  //
-  // }
-  // onDelete() {
-  // }
-
-  // onSubmit(event) {
-  // }
 
   /* Render habit */
   return (

@@ -14,7 +14,6 @@ const HabitSquare: React.FC<Props> = props => {
   const toggleComplete = (e: React.MouseEvent) => {
     e.preventDefault();
     props.toggleComplete(props.habit.id, props.date);
-    console.log(props.date); 
   };
   
   return (   

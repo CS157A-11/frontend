@@ -1,38 +1,12 @@
 import React, { useState } from 'react'; 
-import Mood from "./Mood";
 import { Table } from 'react-bootstrap'; 
+import { WeeklyView } from "./Habits"; 
+import MoodDropdown from "./MoodDropdown";
 
-
-export interface MoodType {
-    id: number;
-    name: string;
-    type: string; 
-    selected: boolean;
-}
-
-export interface MoodOfTheDay {
-  id: number;
-  date: Date;
-}
+const daysOfWeek:string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; 
 
 const Moods: React.FC = () => {
-    const [moods, setMood] = useState<MoodType[]>([
-        { id: 1, name: "happy", type: "positive", selected: false},
-        { id: 1, name: "focused", type: "positive", selected: false},
-        { id: 1, name: "productive", type: "positive", selected: false},
-        { id: 1, name: "motivated", type: "positive", selected: false},
-        { id: 1, name: "neutral", type: "neutral", selected: false},
-        { id: 1, name: "sad", type: "negative", selected: false},
-        { id: 1, name: "angry", type: "negative", selected: false},
-        { id: 1, name: "tired", type: "negative", selected: false},
-        { id: 1, name: "lazy", type: "negative", selected: false},
-    ]);
-
-    const [moodOfTheDay, setMoodOfTheDay] = useState<MoodOfTheDay[]>([
-      
-    ]);
-    
-    
+  
     return (
         <div className="moods mt-3">
           {/* className="bg-white"  */}
@@ -41,14 +15,23 @@ const Moods: React.FC = () => {
               <tr style={{textAlign: "center"}}>   
                 {[].map(day => (
                   <th key={day} className="name p-2">
-                    {day}
+            
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
-                <Mood moods={moods} />
-            </tbody>
+              <tbody>
+                <tr className="mood">
+                <td className="title" style={{ color: '#e83e8c'}}>
+                  mood of the day
+                </td>
+                {daysOfWeek.map(day => (
+                  <td key={day} className="text-center">
+                    <MoodDropdown date={day} />
+                  </td>
+                ))}
+                </tr>
+             </tbody>
           </Table>
         </div>
       );
