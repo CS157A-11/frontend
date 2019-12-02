@@ -2,6 +2,7 @@ import React from 'react';
 //import { Row, Col } from "react-bootstrap";
 import TodoBox from "./ToDoBox";
 import Habits from "./Habits";
+import MoodDropdown from "./MoodDropdown";
 
 const HabitTracker: React.FC = () => {  
   return (
