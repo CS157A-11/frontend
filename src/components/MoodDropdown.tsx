@@ -1,6 +1,5 @@
 import React, {useState, SyntheticEvent } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { SelectCallback } from 'react-bootstrap/helpers';
 
 /* Components */
 interface Props {

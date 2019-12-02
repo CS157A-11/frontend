@@ -6,7 +6,7 @@ import MoodDropdown from "./MoodDropdown";
 const daysOfWeek:string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; 
 
 const Moods: React.FC = () => {
-  
+
     return (
         <div className="moods mt-3">
           {/* className="bg-white"  */}
