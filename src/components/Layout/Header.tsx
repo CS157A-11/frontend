@@ -12,7 +12,6 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const session = localStorage.getItem("token");
   return (
-    // bg = "light"
     <Navbar style={{ backgroundColor: "white" }} expand="lg">
       <Navbar.Brand href="home">Habit Tracker</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

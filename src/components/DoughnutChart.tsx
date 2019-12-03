@@ -65,11 +65,11 @@ export default class DoughnutChart extends React.Component {
             },
             legend:{
               display:true,
-              position:'right'
+              position:'right' 
             }
           }}
         />
       </div>
     );
   }
-}
+};

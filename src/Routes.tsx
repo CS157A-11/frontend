@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Route, Switch } from "react-router-dom";
 import HabitTracker from "./components/HabitTracker";
 import GenerateHabits from "./components/GenerateHabits";
