@@ -1,75 +1,99 @@
-import React from 'react';
-import {Pie, Doughnut} from 'react-chartjs-2';
+import React, { useEffect } from "react";
+import { Pie, Doughnut } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  MoodType,
+  MoodOfTheDayType,
+  fetchAvailableMoods,
+  fetchMoodOfTheDayList
+} from "../modules/moodModule";
+import { RootState } from "../modules";
 
-const state = {
-  labels: ['Happy', 'Focused', 'Productive',
-           'Motivated', 'Neutral', 'Sad', 'Angry',
-            'Tired', 'Lazy'],
-  datasets: [
-    {
-      label: 'Rainfall',
-      backgroundColor: [
-        '#B21F00',
-        '#C9DE00',
-        '#2FDE00',
-        '#00A6B4',
-        '#6800B4',
-        '#FFB560',
-        '#ffbf00',
-        '#00ffbf',
-        '#ffe6e6'
-      ],
-      
-      hoverBackgroundColor: [
-      '#501800',
-      '#4B5000',
-      '#175000',
-      '#003350',
-      '#35014F',
-      '#FFB560',
-      '#ffbf00',
-      '#00ffbf',
-      '#ffe6e6'
-      ],
-      data: [65, 59, 80, 81, 50, 80, 12, 30, 30]
-    }
-  ]
-}
+const DoughnutChart: React.FC = () => {
+  const dispatch = useDispatch();
 
-export default class DoughnutChart extends React.Component {
-  render() {
-    return (
-      <div>
-        <Pie
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Average Mood per month',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
+  const availableMoods: MoodType[] = useSelector(
+    (state: RootState) => state.mood.availableMoods
+  );
 
-        <Doughnut
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Average Mood per month',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
-      </div>
-    );
-  }
-}
+  const moodOfTheDayList: MoodOfTheDayType[] = useSelector(
+    (state: RootState) => state.mood.moodOfTheDayList
+  );
+  useEffect(() => {
+    dispatch(fetchAvailableMoods());
+    dispatch(fetchMoodOfTheDayList());
+  }, []);
+  const labels = availableMoods.map(mood => mood.name);
+
+  const dataSet = {
+    labels,
+    datasets: [
+      {
+        label: "Rainfall",
+        backgroundColor: [
+          "#B21F00",
+          "#C9DE00",
+          "#2FDE00",
+          "#00A6B4",
+          "#6800B4",
+          "#FFB560",
+          "#ffbf00",
+          "#00ffbf",
+          "#ffe6e6"
+        ],
+
+        hoverBackgroundColor: [
+          "#501800",
+          "#4B5000",
+          "#175000",
+          "#003350",
+          "#35014F",
+          "#FFB560",
+          "#ffbf00",
+          "#00ffbf",
+          "#ffe6e6"
+        ],
+        data: labels.map(
+          label =>
+            moodOfTheDayList.filter(mood => mood.mood_name === label).length
+        )
+      }
+    ]
+  };
+
+  return (
+    <div>
+      <Pie
+        data={dataSet}
+        options={{
+          title: {
+            display: true,
+            text: "Average Mood per month",
+            fontSize: 20
+          },
+          legend: {
+            display: true,
+            position: "right"
+          }
+        }}
+      />
+
+      <Doughnut
+        data={dataSet}
+        options={{
+          title: {
+            display: true,
+            text: "Average Mood per month",
+            fontSize: 20
+          },
+          legend: {
+            display: true,
+            position: "right"
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export default DoughnutChart;
