@@ -418,7 +418,7 @@ const Habits: React.FC = () => {
               <th></th>
               {weeklyView.map(day => (
                 <th key={day.date.toString()} className="name p-2">
-                  {day.dayOfWeek}
+                  {`${day.dayOfWeek} ${day.weekHeading}`}
                 </th>
               ))}
             </tr>
