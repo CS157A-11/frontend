@@ -49,7 +49,6 @@ const Habit: React.FC<Props> = props => {
               background: colors[props.habit.id]
             }}
             onClick={() => {
-              console.log(day.date);
               if (!isAlreadyCompleted(day.date.toISOString())) {
                 dispatch(
                   createCompletedHabits({

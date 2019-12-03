@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { WeeklyView } from "./Habits";
-import MoodDropdown from "./MoodDropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../modules";
+import {
+  MoodType,
+  MoodOfTheDayType,
+  fetchAvailableMoods,
+  createMoodOfTheDay,
+  fetchMoodOfTheDayList
+} from "../modules/moodModule";
+import { Dropdown } from "react-bootstrap";
 
 interface Props {
   weeklyView: WeeklyView[];
 }
 
-export interface MoodType {
+export interface MoodType2 {
   id: number;
   name: string;
   type: string;
@@ -19,37 +28,66 @@ export interface MoodOfTheDay {
 }
 
 const Moods: React.FC<Props> = props => {
-  const [moods, setMood] = useState<MoodType[]>([
-    { id: 1, name: "happy", type: "positive", selected: false },
-    { id: 2, name: "focused", type: "positive", selected: false },
-    { id: 3, name: "productive", type: "positive", selected: false },
-    { id: 4, name: "motivated", type: "positive", selected: false },
-    { id: 5, name: "neutral", type: "neutral", selected: false },
-    { id: 6, name: "sad", type: "negative", selected: false },
-    { id: 7, name: "angry", type: "negative", selected: false },
-    { id: 8, name: "tired", type: "negative", selected: false },
-    { id: 9, name: "lazy", type: "negative", selected: false }
-  ]);
-  const [moodOfTheDayList, setMoodOfTheDayList] = useState<MoodOfTheDay[]>([]);
+  const dispatch = useDispatch();
 
-  const handleSelectedMood = (moodOfTheDay: MoodOfTheDay): void => {
-    const newMoodOfTheDay = [...moodOfTheDayList, moodOfTheDay];
-    console.log(newMoodOfTheDay);
-    setMoodOfTheDayList(newMoodOfTheDay);
-  };
+  const availableMoods: MoodType[] = useSelector(
+    (state: RootState) => state.mood.availableMoods
+  );
+
+  const moodOfTheDayList: MoodOfTheDayType[] = useSelector(
+    (state: RootState) => state.mood.moodOfTheDayList
+  );
+  useEffect(() => {
+    dispatch(fetchAvailableMoods());
+    dispatch(fetchMoodOfTheDayList());
+  }, []);
+
+  console.log("www", moodOfTheDayList);
+  const isAlreadyCompleted = (date: string): boolean =>
+    moodOfTheDayList && moodOfTheDayList.some(moodDay => moodDay.date === date);
 
   return (
     <tr className="mood">
-      <td className="title" style={{ color: "#e83e8c" }}>
+      <th className="title mr-3" style={{ color: "#e83e8c", width: "323px" }}>
         mood of the day
-      </td>
+      </th>
       {props.weeklyView.map(day => (
         <td key={day.date.toString()} className="text-center">
-          <MoodDropdown
-            date={day.date}
-            moods={moods}
-            onHandleSelectedMood={handleSelectedMood}
-          />
+          {isAlreadyCompleted(day.date.toISOString()) ? (
+            <div>
+              {
+                moodOfTheDayList.filter(
+                  moodDay => moodDay.date === day.date.toISOString()
+                )[0].mood_name
+              }{" "}
+            </div>
+          ) : (
+            <Dropdown>
+              <Dropdown.Toggle variant="info" id="dropdown-basic">
+                mood
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {availableMoods.map((mood: MoodType) => (
+                  <Dropdown.Item
+                    key={mood.name}
+                    eventKey={mood.name}
+                    onSelect={(eventKey: string) => {
+                      if (!isAlreadyCompleted(day.date.toISOString())) {
+                        dispatch(
+                          createMoodOfTheDay({
+                            mood_name: eventKey,
+                            date: day.date
+                          })
+                        );
+                      }
+                    }}
+                  >
+                    {mood.name}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </td>
       ))}
     </tr>

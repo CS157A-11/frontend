@@ -437,6 +437,7 @@ const Habits: React.FC = () => {
                   weeklyView={weeklyView}
                 />
               ))}
+            <Moods weeklyView={weeklyView} />
           </tbody>
         </Table>
       </div>
@@ -450,9 +451,7 @@ const Habits: React.FC = () => {
               ))}
             </tr>
           </thead>
-          <tbody>
-            <Moods weeklyView={weeklyView} />
-          </tbody>
+          <tbody>{/* <Moods weeklyView={weeklyView} /> */}</tbody>
         </Table>
       </div>
     </div>
