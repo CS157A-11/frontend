@@ -24,7 +24,7 @@ import Routes from "../../Routes";
 
 const HabitTracker: React.FC = () => {
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div>
       <Header />
       <Routes />
     </div>

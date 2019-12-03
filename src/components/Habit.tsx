@@ -32,18 +32,22 @@ const Habit: React.FC<Props> = props => {
   /* Render habit */
   return (
     <tr className="habit" key={props.habit.name}>
-      <td className="title" style={{ color: colors[props.habit.id] }}>
+      <th className="title" style={{ color: colors[props.habit.id] }}>
         {props.habit.name}
-      </td>
+      </th>
       {props.weeklyView.map(day => (
         <td key={day.date.toISOString()}>
           <div
             className={
               isAlreadyCompleted(day.date.toISOString())
-                ? "border bg-primary rounded m-auto p-0"
-                : "border rounded m-auto p-0"
+                ? "border rounded m-auto p-0"
+                : "border bg-white rounded m-auto p-0"
             }
-            style={{ width: "30px", height: "30px" }}
+            style={{
+              width: "30px",
+              height: "30px",
+              background: colors[props.habit.id]
+            }}
             onClick={() => {
               console.log(day.date);
               if (!isAlreadyCompleted(day.date.toISOString())) {
