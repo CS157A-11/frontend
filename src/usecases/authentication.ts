@@ -22,7 +22,7 @@ export async function signup(user: {
   try {
     const res = await HTTP.post("/users/signup", user);
     localStorage.setItem("token", res.data.token);
-    return { user: res.data.newUser };
+    return { user: res.data.user };
   } catch (error) {
     throw error;
   }

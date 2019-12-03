@@ -22,7 +22,9 @@ const Signup: React.FC = () => {
         dispatch(userActions.getUser(res.user));
         history.push("/home");
       });
-    } catch (e) {}
+    } catch (e) {
+      throw e;
+    }
     $event.preventDefault();
   };
 
