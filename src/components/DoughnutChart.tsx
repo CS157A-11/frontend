@@ -2,8 +2,9 @@ import React from 'react';
 import {Pie, Doughnut} from 'react-chartjs-2';
 
 const state = {
-  labels: ['Happy', 'Productive', 'Focused',
-           'Tired', 'Sad'],
+  labels: ['Happy', 'Focused', 'Productive',
+           'Motivated', 'Neutral', 'Sad', 'Angry',
+            'Tired', 'Lazy'],
   datasets: [
     {
       label: 'Rainfall',
@@ -12,16 +13,24 @@ const state = {
         '#C9DE00',
         '#2FDE00',
         '#00A6B4',
-        '#6800B4'
+        '#6800B4',
+        '#FFB560',
+        '#ffbf00',
+        '#00ffbf',
+        '#ffe6e6'
       ],
       hoverBackgroundColor: [
       '#501800',
       '#4B5000',
       '#175000',
       '#003350',
-      '#35014F'
+      '#35014F',
+      '#FFB560',
+      '#ffbf00',
+      '#00ffbf',
+      '#ffe6e6'
       ],
-      data: [65, 59, 80, 81, 56]
+      data: [65, 59, 80, 81, 50, 80, 12, 30, 30]
     }
   ]
 }
