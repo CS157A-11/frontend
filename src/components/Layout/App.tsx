@@ -1,7 +1,7 @@
 import React from "react";
 //import { Row, Col } from "react-bootstrap";
-import Header from "./Layout/Header";
-import Routes from "./Routes";
+import Header from "./Header";
+import Routes from "../../Routes";
 
 // let today = new Date();
 // let monthNumber = today.getMonth();

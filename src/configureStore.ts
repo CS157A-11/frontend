@@ -2,15 +2,16 @@ import {
   combineReducers,
   configureStore,
   getDefaultMiddleware,
-  ActionCreator,
   Action
 } from "redux-starter-kit";
 import appModule from "./modules/appModule";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./modules";
+import userModule from "./modules/userModule";
 
 const rootReducer = combineReducers({
-  app: appModule.reducer
+  app: appModule.reducer,
+  user: userModule.reducer
 });
 
 const store = configureStore({
