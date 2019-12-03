@@ -9,11 +9,13 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "./modules";
 import userModule from "./modules/userModule";
 import habitModule from "./modules/habitModule";
+import moodModule from "./modules/moodModule";
 
 const rootReducer = combineReducers({
   app: appModule.reducer,
   user: userModule.reducer,
-  habit: habitModule.reducer
+  habit: habitModule.reducer,
+  mood: moodModule.reducer
 });
 
 const store = configureStore({

@@ -71,7 +71,6 @@ export const fetchCompletedHabits = (): AppThunk => async dispatch => {
   try {
     await HTTP.get("/completehabits")
       .then(response => {
-        console.log("1", response.data);
         dispatch(habitAction.getCompletedHabitsAction(response.data));
       })
       .catch(response => {
