@@ -2,8 +2,8 @@ import React from 'react';
 import {Pie, Doughnut} from 'react-chartjs-2';
 
 const state = {
-  labels: ['January', 'February', 'March',
-           'April', 'May'],
+  labels: ['Happy', 'Productive', 'Focused',
+           'Tired', 'Sad'],
   datasets: [
     {
       label: 'Rainfall',
