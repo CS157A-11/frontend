@@ -13,6 +13,11 @@ export interface MoodType {
   selected: boolean;
 }
 
+export interface MoodOfTheDay {
+  name: string;
+  date: Date;
+}
+
 const Moods: React.FC<Props> = props => {
   const [moods, setMood] = useState<MoodType[]>([
     { id: 1, name: "happy", type: "positive", selected: false },
@@ -25,6 +30,13 @@ const Moods: React.FC<Props> = props => {
     { id: 8, name: "tired", type: "negative", selected: false },
     { id: 9, name: "lazy", type: "negative", selected: false }
   ]);
+  const [moodOfTheDayList, setMoodOfTheDayList] = useState<MoodOfTheDay[]>([]);
+
+  const handleSelectedMood = (moodOfTheDay: MoodOfTheDay): void => {
+    const newMoodOfTheDay = [...moodOfTheDayList, moodOfTheDay];
+    console.log(newMoodOfTheDay);
+    setMoodOfTheDayList(newMoodOfTheDay);
+  };
 
   return (
     <tr className="mood">
@@ -33,7 +45,11 @@ const Moods: React.FC<Props> = props => {
       </td>
       {props.weeklyView.map(day => (
         <td key={day.date.toString()} className="text-center">
-          <MoodDropdown date={day.date} moods={moods} />
+          <MoodDropdown
+            date={day.date}
+            moods={moods}
+            onHandleSelectedMood={handleSelectedMood}
+          />
         </td>
       ))}
     </tr>
