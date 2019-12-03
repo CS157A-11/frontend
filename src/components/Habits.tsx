@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 var moment = require("moment");
 import { Button } from "react-bootstrap";
 moment().format();
@@ -8,6 +8,14 @@ import Habit from "./Habit";
 //import WeeklyView from "./WeeklyView"
 import Moods from "./Moods";
 import { Table } from "react-bootstrap";
+import {
+  HabitType,
+  fetchHabits,
+  CompletedHabitType,
+  fetchCompletedHabits
+} from "../modules/habitModule";
+import { RootState } from "../modules";
+import { useSelector, useDispatch } from "react-redux";
 
 //TODO: Move date stuff to another class and pass it in somehow? to make it cleaner
 
@@ -76,13 +84,6 @@ let year = startDate.getFullYear();
 
 //TODO: Move everything above interface to another class and pass it in
 
-export interface HabitType {
-  id: number;
-  name: string;
-  color: string;
-  complete: boolean;
-}
-
 export interface CompletedHabit {
   id: number;
   date: Date;
@@ -102,19 +103,18 @@ export interface WeeklyDatesHeader {
 }
 
 const Habits: React.FC = () => {
-  const [habits, setHabits] = useState<HabitType[]>([
-    { id: 1, name: "sleep early", color: "#e83e8c", complete: false },
-    { id: 2, name: "exercise", color: "#007bff", complete: false },
-    { id: 3, name: "meditate", color: "#ffc107", complete: false },
-    { id: 4, name: "floss", color: "#e83e8c", complete: false },
-    { id: 5, name: "read before class", color: "#007bff", complete: false },
-    { id: 6, name: "clean room", color: "#ffc107", complete: false },
-    { id: 7, name: "write in journal", color: "#e83e8c", complete: false },
-    { id: 8, name: "take vitamins", color: "#007bff", complete: false },
-    { id: 9, name: "wake up early", color: "#ffc107", complete: false }
-  ]);
+  const habits: HabitType[] = useSelector(
+    (state: RootState) => state.habit.habits
+  );
+  const completedHabits: CompletedHabitType[] = useSelector(
+    (state: RootState) => state.habit.completedHabits
+  );
 
-  const [completedHabits, setCompletedHabits] = useState<CompletedHabit[]>([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchHabits());
+    dispatch(fetchCompletedHabits());
+  }, []);
 
   const [weeklyView, setWeeklyView] = useState<WeeklyView[]>([
     {
@@ -242,17 +242,6 @@ const Habits: React.FC = () => {
     }
   ]);
 
-  const [weeklyDatesHeader, setWeeklyDatesHeader] = useState<
-    WeeklyDatesHeader[]
-  >([
-    {
-      firstDate: startDate.getMonth() + 1 + "/" + startDate.getDate(),
-      lastDate: endDate.getMonth() + 1 + "/" + endDate.getDate(),
-      monthName: monthNames[startDate.getMonth()],
-      year: startDate.getFullYear()
-    }
-  ]);
-
   /* After clicking the previous week button (<) change the header above habit tracker (i.e. Sun 12/1- Sat 12/7) by updating weeklyDatesHeader state
      also update the weekly view of the habit tracker (which date each button corresponds to) by changing the weekly view state */
 
@@ -284,7 +273,6 @@ const Habits: React.FC = () => {
       monthName: monthName,
       year: year
     });
-    setWeeklyDatesHeader(newWeeklyDatesHeader);
 
     const newWeeklyView = [];
 
@@ -341,7 +329,6 @@ const Habits: React.FC = () => {
       monthName: monthName,
       year: year
     });
-    setWeeklyDatesHeader(newWeeklyDatesHeader);
 
     const newWeeklyView = [];
 
@@ -378,45 +365,6 @@ const Habits: React.FC = () => {
   const toggleNextWeek = (e: React.MouseEvent) => {
     e.preventDefault();
     handleToggleNextWeek(startDate, endDate);
-  };
-
-  /* Add habit to completed habits array when clicked, 
-     remove from array if you click on a completed habit again */
-
-  const handleToggleComplete = (id: number, date: Date): void => {
-    const filteredArray = completedHabits.filter(
-      completedHabit => completedHabit.id === id && completedHabit.date == date
-    );
-
-    if (filteredArray.length != 0) {
-      const newCompletedHabits = [...completedHabits];
-      for (let i = 0; i < newCompletedHabits.length; i++) {
-        if (
-          newCompletedHabits[i].id === id &&
-          newCompletedHabits[i].date === date
-        ) {
-          newCompletedHabits.splice(i, 1);
-        }
-      }
-      setCompletedHabits(newCompletedHabits);
-    } else {
-      const newCompletedHabits = [...completedHabits];
-      newCompletedHabits.push({ id: id, date: date });
-      setCompletedHabits(newCompletedHabits);
-    }
-  };
-
-  /* Check if habit is in the completed habits array */
-
-  const isCompleted = (id: number, date: Date): boolean => {
-    const filteredArray = completedHabits.filter(
-      completedHabit => completedHabit.id === id && completedHabit.date == date
-    );
-    if (filteredArray.length != 0) {
-      return true;
-    } else {
-      return false;
-    }
   };
 
   return (
@@ -477,15 +425,18 @@ const Habits: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {habits.map((habit: HabitType) => (
-              <Habit
-                key={habit.id}
-                habit={habit}
-                toggleComplete={handleToggleComplete}
-                isCompleted={isCompleted}
-                weeklyView={weeklyView}
-              />
-            ))}
+            {habits
+              .filter(habit => habit.is_active)
+              .map((habit: HabitType) => (
+                <Habit
+                  key={habit.id}
+                  habit={habit}
+                  completedHabits={completedHabits.filter(
+                    ch => ch.habit_id === habit.id
+                  )}
+                  weeklyView={weeklyView}
+                />
+              ))}
           </tbody>
         </Table>
       </div>
