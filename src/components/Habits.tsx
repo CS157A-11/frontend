@@ -5,7 +5,6 @@ moment().format();
 
 /* Components */
 import Habit from "./Habit";
-//import WeeklyView from "./WeeklyView"
 import Moods from "./Moods";
 import { Table } from "react-bootstrap";
 import {
@@ -419,7 +418,7 @@ const Habits: React.FC = () => {
               <th></th>
               {weeklyView.map(day => (
                 <th key={day.date.toString()} className="name p-2">
-                  {day.weekHeading}
+                  {day.dayOfWeek}
                 </th>
               ))}
             </tr>
