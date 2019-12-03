@@ -20,6 +20,7 @@ const Header: React.FC = () => {
         <Nav className="mr-auto">
           <Nav.Link href="home">Home</Nav.Link>
           <Nav.Link href="generate">Generate</Nav.Link>
+          <Nav.Link href="report">Report</Nav.Link>
 
           {!user.name && !session ? (
             <>
