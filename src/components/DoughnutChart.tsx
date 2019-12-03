@@ -19,6 +19,7 @@ const state = {
         '#00ffbf',
         '#ffe6e6'
       ],
+      
       hoverBackgroundColor: [
       '#501800',
       '#4B5000',
