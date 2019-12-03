@@ -4,7 +4,6 @@ import HabitTracker from "./components/HabitTracker";
 import GenerateHabits from "./components/GenerateHabits";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-import Report from "./components/Report"
 
 const Routes: React.FC = () => {
   return (
@@ -14,7 +13,6 @@ const Routes: React.FC = () => {
       <Route exact path="/generate" component={GenerateHabits} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={Signup} />
-      <Route exact path="/report" component={Report} />
     </Switch>
   );
 };
