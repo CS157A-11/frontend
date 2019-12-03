@@ -5,7 +5,6 @@ moment().format();
 
 /* Components */
 import Habit from "./Habit";
-//import WeeklyView from "./WeeklyView"
 import Moods from "./Moods";
 import { Table } from "react-bootstrap";
 import {
