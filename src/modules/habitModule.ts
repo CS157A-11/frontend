@@ -98,3 +98,37 @@ export const createCompletedHabits = (newCompleteHabit: {
     throw err;
   }
 };
+
+export const updateIsActive = (habit: {
+  habit_id: number;
+  is_active: boolean;
+}): AppThunk => async dispatch => {
+  try {
+    await HTTP.put("/habits/updateIsActive", habit)
+      .then(() => {
+        dispatch(fetchHabits());
+      })
+      .catch(response => {
+        console.log(response);
+      });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createHabit = (habit: {
+  name: string;
+  is_active: boolean;
+}): AppThunk => async dispatch => {
+  try {
+    await HTTP.post("/habits", habit)
+      .then(() => {
+        dispatch(fetchHabits());
+      })
+      .catch(response => {
+        console.log(response);
+      });
+  } catch (err) {
+    throw err;
+  }
+};

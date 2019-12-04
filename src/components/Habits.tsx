@@ -411,7 +411,6 @@ const Habits: React.FC = () => {
           Sun, {firstDate} - Sat, {lastDate}
         </h3>
 
-        {/* className="bg-white"  */}
         <Table style={{ background: "white" }}>
           <thead>
             <tr style={{ textAlign: "center" }}>
@@ -438,19 +437,6 @@ const Habits: React.FC = () => {
               ))}
             <Moods weeklyView={weeklyView} />
           </tbody>
-        </Table>
-      </div>
-
-      <div className="moods mt-3">
-        <Table style={{ background: "white" }}>
-          <thead>
-            <tr style={{ textAlign: "center" }}>
-              {[].map(day => (
-                <th key={day} className="name p-2"></th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>{/* <Moods weeklyView={weeklyView} /> */}</tbody>
         </Table>
       </div>
     </div>
