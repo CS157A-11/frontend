@@ -9,11 +9,11 @@ interface Props {
 }
 
 const Item: React.FC<Props> = props => {
-  const removeNode = (e: React.MouseEvent) => {
-    e.preventDefault();
-    props.removeItem(props.item.id);
-    return;
-  };
+  // const removeNode = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   props.removeItem(props.item.id);
+  //   return;
+  // };
 
   const toggleComplete = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -34,17 +34,17 @@ const Item: React.FC<Props> = props => {
       onClick={toggleComplete}
     >
       {props.item.name}
-      <div className="ml-4" role="group">
+      {/* <div className="ml-4" role="group">
         <Button
           type="button"
           className="btn btn-sm btn-danger"
           size="sm"
-          onClick={removeNode}
+          onClick={() => console.log("aaa")}
           style={{ borderRadius: "20px" }}
         >
           &#xff38;
         </Button>
-      </div>
+      </div> */}
     </ListGroup.Item>
   );
 };
