@@ -68,22 +68,7 @@ const DoughnutChart: React.FC = () => {
         options={{
           title: {
             display: true,
-            text: "Average Mood per month",
-            fontSize: 20
-          },
-          legend: {
-            display: true,
-            position: "right"
-          }
-        }}
-      />
-
-      <Doughnut
-        data={dataSet}
-        options={{
-          title: {
-            display: true,
-            text: "Average Mood per month",
+            text: "Average Mood",
             fontSize: 20
           },
           legend: {
