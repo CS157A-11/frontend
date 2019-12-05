@@ -1,20 +1,13 @@
 import React from "react";
-import { Button, ListGroup } from "react-bootstrap";
-import { Item } from "./ItemList";
+import { ListGroup } from "react-bootstrap";
+import { Item } from "./GenerateHabitList";
 
 interface Props {
   item: Item;
-  removeItem(id: number): void;
   toggleActive(id: number): void;
 }
 
-const Item: React.FC<Props> = props => {
-  // const removeNode = (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  //   props.removeItem(props.item.id);
-  //   return;
-  // };
-
+const GenerateHabit: React.FC<Props> = props => {
   const toggleComplete = (e: React.MouseEvent) => {
     e.preventDefault();
     props.toggleActive(props.item.id);
@@ -34,19 +27,8 @@ const Item: React.FC<Props> = props => {
       onClick={toggleComplete}
     >
       {props.item.name}
-      {/* <div className="ml-4" role="group">
-        <Button
-          type="button"
-          className="btn btn-sm btn-danger"
-          size="sm"
-          onClick={() => console.log("aaa")}
-          style={{ borderRadius: "20px" }}
-        >
-          &#xff38;
-        </Button>
-      </div> */}
     </ListGroup.Item>
   );
 };
 
-export default Item;
+export default GenerateHabit;

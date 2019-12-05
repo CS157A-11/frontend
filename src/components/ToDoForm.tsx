@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { formatWithOptions } from "util";
 
 interface Props {
   handleSubmit(val: string): void;

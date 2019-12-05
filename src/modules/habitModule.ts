@@ -36,14 +36,12 @@ const habitModule = createSlice({
       state: HabitState,
       action: PayloadAction<HabitType[]>
     ) => {
-      console.log(action.payload);
       state.habits = action.payload;
     },
     getCompletedHabitsAction: (
       state: HabitState,
       action: PayloadAction<CompletedHabitType[]>
     ) => {
-      console.log(action.payload);
       state.completedHabits = action.payload;
     }
   }

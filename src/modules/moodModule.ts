@@ -81,7 +81,6 @@ export const createMoodOfTheDay = (newMood: {
   mood_name: string;
   date: Date;
 }): AppThunk => async dispatch => {
-  console.log(newMood);
   try {
     await HTTP.post("/moodoftheday", newMood)
       .then(() => {

@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import HabitTracker from "./components/HabitTracker";
 import GenerateHabits from "./components/GenerateHabits";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
-import Report from "./components/Report"
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Report from "./components/Report";
 
 const Routes: React.FC = () => {
   return (
