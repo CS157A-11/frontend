@@ -32,7 +32,6 @@ const appModule = createSlice({
         }[]
       >
     ) => {
-      console.log(action.payload);
       state.emp = action.payload;
     }
   }
@@ -46,7 +45,6 @@ export const fetchEmp = (): AppThunk => async dispatch => {
     await axios
       .get("http://localhost:3000/api/v1/test/")
       .then(response => {
-        console.log(response);
         dispatch(appActions.getEmp(response.data));
       })
       .catch(response => {

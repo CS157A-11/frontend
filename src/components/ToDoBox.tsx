@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import TodoList from "./ToDoList";
 import TodoForm from "./ToDoForm";
 import {
@@ -25,7 +25,6 @@ const TodoBox: React.FC = () => {
     (state: RootState) => state.todo.completedTodos
   );
 
-  console.log(completedTodos);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTodos());

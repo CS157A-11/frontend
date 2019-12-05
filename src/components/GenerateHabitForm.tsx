@@ -4,7 +4,7 @@ interface Props {
   handleSubmit(val: string): void;
 }
 
-const ItemForm: React.FC<Props> = props => {
+const GenerateHabitForm: React.FC<Props> = props => {
   const [value, setValue] = useState("");
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
@@ -40,4 +40,4 @@ const ItemForm: React.FC<Props> = props => {
   );
 };
 
-export default ItemForm;
+export default GenerateHabitForm;
