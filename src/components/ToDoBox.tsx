@@ -1,45 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoList from "./ToDoList";
 import TodoForm from "./ToDoForm";
+import {
+  TodoType,
+  CompletedTodoType,
+  fetchTodos,
+  fetchCompletedTodos,
+  updateIsActive,
+  createTodo,
+  createCompletedTodos
+} from "../modules/todoModule";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../modules";
 
-export interface ToDoType {
+export interface ToDoType2 {
   id: number;
   task: string;
   complete: boolean;
 }
 
 const TodoBox: React.FC = () => {
-  const [todos, setTodos] = useState<ToDoType[]>([
-    { id: 1, task: "HW 1", complete: false },
-    { id: 2, task: "HW 2", complete: false },
-    { id: 3, task: "Register for classes", complete: false }
-  ]);
+  const todos: TodoType[] = useSelector((state: RootState) => state.todo.todos);
+  const completedTodos: CompletedTodoType[] = useSelector(
+    (state: RootState) => state.todo.completedTodos
+  );
 
-  const generateId = () => {
-    if (todos.length === 0) {
-      return 1;
-    } else {
-      return Math.max(...todos.map(todo => todo.id)) + 1;
-    }
-  };
+  console.log(completedTodos);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTodos());
+    dispatch(fetchCompletedTodos());
+  }, []);
+
   const handleRemoveTodo = (todoId: number): void => {
-    setTodos(todos.filter(todo => todo.id !== todoId));
+    const targetTodo = todos.find(todo => todo.id === todoId);
+    if (targetTodo)
+      dispatch(
+        updateIsActive({
+          todo_id: targetTodo.id,
+          is_active: false
+        })
+      );
   };
   const handleSubmit = (val: string): void => {
-    setTodos([...todos, { id: generateId(), task: val, complete: false }]);
+    dispatch(createTodo({ name: val, is_active: true }));
   };
   const handleToggleComplete = (todoId: number): void => {
-    const newTodos = [...todos];
-    const targetTodo = newTodos.find(todo => todo.id === todoId) as ToDoType;
-    targetTodo.complete = !targetTodo.complete;
-    setTodos(newTodos);
+    const targetTodo = todos.find(todo => todo.id === todoId);
+    if (
+      targetTodo &&
+      completedTodos.every(cTodo => cTodo.todo_id !== targetTodo.id)
+    ) {
+      dispatch(
+        createCompletedTodos({
+          todo_id: targetTodo.id,
+          completed_date: new Date()
+        })
+      );
+    }
   };
 
   return (
     <>
       <h3>Todo List:</h3>
       <TodoList
-        todos={todos}
+        todos={todos.filter(todo => todo.is_active)}
+        completedTodos={completedTodos}
         removeTodo={handleRemoveTodo}
         toggleComplete={handleToggleComplete}
       />
