@@ -20,6 +20,9 @@ const Signup: React.FC = () => {
     try {
       signup(user).then((res): void => {
         dispatch(userActions.getUser(res.user));
+        dispatch(
+          appActions.setIsAuthenticated(localStorage.getItem("token") !== null)
+        );
         history.push("/home");
       });
     } catch (e) {
@@ -29,8 +32,8 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="p-5" style={{ backgroundColor: "white" }}>
-      <Form onSubmit={onSubmit}>
+    <div className="d-flex flex-column align-items-center">
+      <Form onSubmit={onSubmit} style={{ minWidth: "400px" }}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control placeholder="Enter your name" />
@@ -46,10 +49,19 @@ const Signup: React.FC = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Log In
-        </Button>
+        <div className="d-flex justify-content-center">
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </div>
       </Form>
+      <Button
+        className=""
+        variant="link"
+        onClick={() => history.push("/login")}
+      >
+        have account?
+      </Button>
     </div>
   );
 };

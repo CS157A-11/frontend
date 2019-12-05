@@ -15,6 +15,7 @@ import {
 } from "../modules/habitModule";
 import { RootState } from "../modules";
 import { useSelector, useDispatch } from "react-redux";
+import { User } from "../modules/userModule";
 
 //TODO: Move date stuff to another class and pass it in somehow? to make it cleaner
 
@@ -365,11 +366,12 @@ const Habits: React.FC = () => {
     e.preventDefault();
     handleToggleNextWeek(startDate, endDate);
   };
+  const user: User = useSelector((state: RootState) => state.user.user);
 
   return (
     <div className="habittracker mt-3">
       <div className="habits mt-3">
-        <h1>Hey there, [name]</h1>
+        <h1>Hey there, {user.name}</h1>
         <h1>
           {monthName} {year}
         </h1>
