@@ -51,7 +51,6 @@ export const fetchTodos = (): AppThunk => async dispatch => {
   try {
     await HTTP.get("/todos")
       .then(response => {
-        console.log(response);
         dispatch(todoAction.getTodosAction(response.data));
       })
       .catch(response => {
