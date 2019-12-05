@@ -54,21 +54,6 @@ export default class DoughnutChart extends React.Component {
             }
           }}
         />
-
-        <Doughnut
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Average Mood per month',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right' 
-            }
-          }}
-        />
       </div>
     );
   }
