@@ -1,9 +1,10 @@
 import React from "react";
-import { ToDoType } from "./ToDoBox";
 import { Button, ListGroup } from "react-bootstrap";
+import { TodoType } from "../modules/todoModule";
 
 interface Props {
-  todo: ToDoType;
+  todo: TodoType;
+  isAlreadyCompleted: boolean;
   removeTodo(todoId: number): void;
   toggleComplete(todoId: number): void;
 }
@@ -21,16 +22,16 @@ const TodoItem: React.FC<Props> = props => {
   };
 
   let className = "d-flex justify-content-between align-items-center";
-  if (props.todo.complete) {
+  if (props.isAlreadyCompleted) {
     className = className + "list-group-item-success";
   }
 
   return (
     <ListGroup.Item
       className="w-100 d-flex justify-content-between align-items-center"
-      variant={props.todo.complete ? "success" : undefined}
+      variant={props.isAlreadyCompleted ? "success" : undefined}
     >
-      {props.todo.task}
+      {props.todo.name}
       <div className="ml-4" role="group">
         <Button
           type="button"

@@ -10,12 +10,14 @@ import { RootState } from "./modules";
 import userModule from "./modules/userModule";
 import habitModule from "./modules/habitModule";
 import moodModule from "./modules/moodModule";
+import todoModule from "./modules/todoModule";
 
 const rootReducer = combineReducers({
   app: appModule.reducer,
   user: userModule.reducer,
   habit: habitModule.reducer,
-  mood: moodModule.reducer
+  mood: moodModule.reducer,
+  todo: todoModule.reducer
 });
 
 const store = configureStore({

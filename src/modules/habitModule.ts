@@ -56,7 +56,6 @@ export const fetchHabits = (): AppThunk => async dispatch => {
   try {
     await HTTP.get("/habits")
       .then(response => {
-        console.log(response);
         dispatch(habitAction.getHabitsAction(response.data));
       })
       .catch(response => {
@@ -85,7 +84,6 @@ export const createCompletedHabits = (newCompleteHabit: {
   habit_id: number;
   completed_date: Date;
 }): AppThunk => async dispatch => {
-  console.log(newCompleteHabit);
   try {
     await HTTP.post("/completehabits", newCompleteHabit)
       .then(() => {

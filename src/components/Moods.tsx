@@ -42,7 +42,6 @@ const Moods: React.FC<Props> = props => {
     dispatch(fetchMoodOfTheDayList());
   }, []);
 
-  console.log("www", moodOfTheDayList);
   const isAlreadyCompleted = (date: string): boolean =>
     moodOfTheDayList && moodOfTheDayList.some(moodDay => moodDay.date === date);
 

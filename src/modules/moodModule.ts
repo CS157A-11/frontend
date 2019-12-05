@@ -35,14 +35,12 @@ const moodModule = createSlice({
       state: MoodState,
       action: PayloadAction<MoodType[]>
     ) => {
-      console.log(action.payload);
       state.availableMoods = action.payload;
     },
     getMoodOfTheDayList: (
       state: MoodState,
       action: PayloadAction<MoodOfTheDayType[]>
     ) => {
-      console.log(action.payload);
       state.moodOfTheDayList = action.payload;
     }
   }
@@ -55,7 +53,6 @@ export const fetchAvailableMoods = (): AppThunk => async dispatch => {
   try {
     await HTTP.get("/moodoftheday/availablemoods")
       .then(response => {
-        console.log(response);
         dispatch(moodAction.getAvailableMoods(response.data));
       })
       .catch(response => {
@@ -70,7 +67,6 @@ export const fetchMoodOfTheDayList = (): AppThunk => async dispatch => {
   try {
     await HTTP.get("/moodoftheday")
       .then(response => {
-        console.log("1", response.data);
         dispatch(moodAction.getMoodOfTheDayList(response.data));
       })
       .catch(response => {
