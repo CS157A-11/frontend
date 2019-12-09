@@ -8,6 +8,7 @@ import {
   fetchMoodOfTheDayList
 } from "../modules/moodModule";
 import { RootState } from "../modules";
+import colors from "../utils/color";
 
 const DoughnutChart: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,29 +31,9 @@ const DoughnutChart: React.FC = () => {
     datasets: [
       {
         label: "Rainfall",
-        backgroundColor: [
-          "#B21F00",
-          "#C9DE00",
-          "#2FDE00",
-          "#00A6B4",
-          "#6800B4",
-          "#FFB560",
-          "#ffbf00",
-          "#00ffbf",
-          "#ffe6e6"
-        ],
+        backgroundColor: colors,
 
-        hoverBackgroundColor: [
-          "#501800",
-          "#4B5000",
-          "#175000",
-          "#003350",
-          "#35014F",
-          "#FFB560",
-          "#ffbf00",
-          "#00ffbf",
-          "#ffe6e6"
-        ],
+        hoverBackgroundColor: colors,
         data: labels.map(
           label =>
             moodOfTheDayList.filter(mood => mood.mood_name === label).length
