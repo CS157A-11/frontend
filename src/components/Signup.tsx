@@ -4,6 +4,7 @@ import { signup } from "../usecases/authentication";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { userActions } from "../modules/userModule";
+import { appActions } from "../modules/appModule";
 
 const Signup: React.FC = () => {
   const history = useHistory();
